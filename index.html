@@ -80,7 +80,7 @@ a { color: inherit; }
 
 /* language switch */
 .lang { position: relative; display: inline-grid; grid-template-columns: 1fr 1fr; padding: 3px; border-radius: 999px; background: rgba(244,246,251,.06); border: 1px solid var(--line); margin-inline: 6px; isolation: isolate; }
-.lang button { position: relative; z-index: 1; font: inherit; font-weight: 900; font-size: 12.5px; letter-spacing: .08em; color: var(--muted); background: none; border: 0; padding: 6px 11px; border-radius: 999px; cursor: pointer; transition: color .3s; min-width: 40px; }
+.lang button { position: relative; z-index: 1; font: inherit; font-weight: 800; font-size: 13px; letter-spacing: .01em; color: var(--muted); background: none; border: 0; padding: 6px 11px; border-radius: 999px; cursor: pointer; transition: color .3s; min-width: 40px; }
 .lang button[aria-pressed="true"] { color: #07061A; }
 .lang-pill { position: absolute; z-index: 0; top: 3px; bottom: 3px; left: 3px; width: calc(50% - 3px); border-radius: 999px; background: var(--ink); transition: transform .45s cubic-bezier(.16, 1, .3, 1); }
 .lang[data-active="es"] .lang-pill { transform: translateX(100%); }
@@ -122,7 +122,7 @@ a { color: inherit; }
 @keyframes cue { to { top: 100%; } }
 
 /* showcase: pinned while the products slide in */
-.showcase { position: relative; height: 320vh; }
+.showcase { position: relative; height: 230vh; }
 .pin { position: sticky; top: 0; height: 100svh; overflow: hidden; display: grid; grid-template-rows: auto 1fr; padding-top: max(56px, env(safe-area-inset-top, 0px)); isolation: isolate; }
 .pin::before { content: ""; position: absolute; inset: 0; z-index: -2; background: radial-gradient(ellipse 70% 55% at 50% 60%, var(--bg-2), var(--bg) 70%); }
 .show-head { text-align: center; display: grid; gap: 12px; justify-items: center; padding-inline: 20px; }
@@ -188,12 +188,12 @@ a { color: inherit; }
   <div class="wrap">
     <a class="brand" href="#top"><img src="icon.webp" alt="" width="34" height="34"><span>Creative Sublimation</span></a>
     <nav class="nav" aria-label="Main">
-      <a href="#showcase" data-i18n="navProducts">Products</a>
+      <a href="design.html#products" data-i18n="navProducts">Products</a>
       <a href="#close" data-i18n="navHow">How it works</a>
       <div class="lang" role="group" aria-label="Language / Idioma">
         <span class="lang-pill" aria-hidden="true"></span>
-        <button type="button" data-lang="en" aria-pressed="true" lang="en" title="English">EN</button>
-        <button type="button" data-lang="es" aria-pressed="false" lang="es" title="Español">ES</button>
+        <button type="button" data-lang="en" aria-pressed="true" lang="en" title="English">English</button>
+        <button type="button" data-lang="es" aria-pressed="false" lang="es" title="Español">Español</button>
       </div>
       <a class="btn btn-primary" href="design.html" data-i18n="designNow">Design now</a>
     </nav>
@@ -219,7 +219,7 @@ a { color: inherit; }
       <p class="lead reveal" data-i18n="heroLead">Custom shirts, mugs, tumblers and more. Bring a photo or an idea, and we'll press it in full color.</p>
       <div class="ctas reveal">
         <a class="btn btn-primary" href="design.html" data-i18n-html="designNowArrow">Design now <span class="arrow" aria-hidden="true">→</span></a>
-        <a class="btn btn-ghost" href="#showcase" data-i18n="viewProducts">View our products</a>
+        <a class="btn btn-ghost" href="design.html#products" data-i18n="viewProducts">View our products</a>
       </div>
     </div>
     <a class="scroll-cue" href="#showcase"><span data-i18n="scroll">Scroll</span><span class="track"></span></a>
@@ -322,7 +322,7 @@ a { color: inherit; }
       <p data-i18n="closeText">Upload a photo or describe what you want. We finish the artwork, text you a price, and press it for local pickup or shipping.</p>
       <div class="ctas">
         <a class="btn btn-primary" href="design.html" data-i18n-html="designNowArrow">Design now <span class="arrow" aria-hidden="true">→</span></a>
-        <a class="btn btn-ghost" href="#showcase" data-i18n="viewProducts">View our products</a>
+        <a class="btn btn-ghost" href="design.html#products" data-i18n="viewProducts">View our products</a>
       </div>
     </div>
   </section>
@@ -470,24 +470,33 @@ a { color: inherit; }
 
     // showcase progress 0 → 1 across the pinned scroll
     const r = sc.getBoundingClientRect();
-    const p = clamp(-r.top / (sc.offsetHeight - vh));
+    const p = clamp(-r.top / (sc.offsetHeight - vh));      // 0 → 1 while the section is pinned
+    const enter = clamp((vh - r.top) / vh);                  // 0 → 1 while the section scrolls into view
     if (reduce) { setFinal(); return; }
-    const h = ease(clamp((p - .0) / .22));
+    const h = ease(clamp((enter - .3) / .3));
     eyebrow.style.opacity = h.toFixed(3);
     words.forEach((w, i) => {
-      const t = ease(clamp((p - i * .05) / .2));
+      const t = ease(clamp((enter - .35 - i * .07) / .3));
       w.style.opacity = t.toFixed(3);
       w.style.transform = `translateY(${((1 - t) * 40).toFixed(1)}px)`;
       w.style.filter = `blur(${((1 - t) * 8).toFixed(1)}px)`;
     });
-    const a = ease(clamp((p - .08) / .42));
-    const off = (1 - a) * vw * .62;
-    shirt.style.transform = `translateY(-50%) translateX(${(-off).toFixed(1)}px) rotate(${(-6 - (1 - a) * 22).toFixed(2)}deg) scale(${(.72 + a * .28).toFixed(3)})`;
-    mug.style.transform = `translateY(-50%) translateX(${off.toFixed(1)}px) rotate(${(6 + (1 - a) * 22).toFixed(2)}deg) scale(${(.72 + a * .28).toFixed(3)})`;
-    const c = ease(clamp((p - .5) / .16));
+    // products peek in from the edges as the words arrive, then keep drifting slowly
+    // for the whole pinned scroll (no point where they park and stop)
+    const peek = ease(clamp((enter - .3) / .5));
+    const s = Math.sin(p * Math.PI / 2);                    // gentle, never-flat curve across the pin
+    const inward = vw < 720 ? 0 : .06;                      // on phones, don't drift into each other
+    const offFrac = p > 0 ? .18 - (.18 + inward) * s : .62 - .44 * peek;
+    const off = offFrac * vw;
+    const rot = p > 0 ? 20 - 19 * s : 20 + (1 - peek) * 8;
+    const scl = .76 + .28 * s;
+    const lift = -p * 36;
+    shirt.style.transform = `translateY(calc(-50% + ${lift.toFixed(1)}px)) translateX(${(-off).toFixed(1)}px) rotate(${(-rot).toFixed(2)}deg) scale(${scl.toFixed(3)})`;
+    mug.style.transform = `translateY(calc(-50% + ${lift.toFixed(1)}px)) translateX(${off.toFixed(1)}px) rotate(${rot.toFixed(2)}deg) scale(${scl.toFixed(3)})`;
+    const c = ease(clamp((p - .32) / .2));
     [capS, capM].forEach(el => { el.style.opacity = c.toFixed(3); el.style.transform = `translateY(${((1 - c) * 24).toFixed(1)}px)`; });
     giant.style.transform = `translate(calc(-50% + ${((.5 - p) * vw * .5).toFixed(1)}px), -50%)`;
-    const e = ease(clamp((p - .78) / .14));
+    const e = ease(clamp((p - .58) / .2));
     endCta.style.opacity = e.toFixed(3);
     endCta.style.transform = `translateX(-50%) translateY(${((1 - e) * 20).toFixed(1)}px)`;
     endCta.style.pointerEvents = e > .5 ? 'auto' : 'none';
