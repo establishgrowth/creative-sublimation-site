@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Custom sublimation printing: shirts, hoodies, mugs, tumblers and more. Bring a photo or an idea and we press it in full color.">
+<link rel="apple-touch-icon" href="icon.png">
+<title>Creative Sublimation · Custom Sublimation Printing</title>
+<link rel="icon" href="icon.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@500;700;800;900&display=swap">
+<style>
+/* Layout: full-screen dark hero (logo flies in, two calls to action) → pinned scroll stage where a tee and a mug slide in from the sides → product-type ticker → closing call to action. Deliberately dark-only. */
+:root {
+  --bg: #07061A;            /* near-black with the logo's navy bias */
+  --bg-2: #0E0B26;
+  --surface: #15113A;
+  --ink: #F4F6FB;           /* Cloud */
+  --muted: #A3A1C2;
+  --line: rgba(244, 246, 251, .12);
+  --blue: #194CC6;
+  --sky: #47BFED;
+  --pink: #D32070;
+  --magenta: #E032BA;
+  --purple: #8522CD;
+  --yellow: #F0C336;
+  --orange: #E97023;
+  --gradient: linear-gradient(90deg, #47BFED, #194CC6 22%, #8522CD 48%, #E032BA 72%, #F0C336);
+  --font-display: "Lilita One", "Arial Rounded MT Bold", "Arial Black", sans-serif;
+  --font-body: "Nunito", "Segoe UI", system-ui, -apple-system, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.5; overflow-x: hidden; }
+a { color: inherit; }
+.wrap { max-width: 1200px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+.eyebrow { font-weight: 900; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+:focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; border-radius: 8px; }
+
+/* buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; font-weight: 900; font-size: 16px; letter-spacing: .01em; border-radius: 999px; padding: 15px 26px; transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s, background-color .25s, border-color .25s; will-change: transform; }
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0) scale(.98); }
+.btn-primary { background: var(--pink); color: #fff; box-shadow: 0 10px 30px -8px rgba(211, 32, 112, .7), inset 0 1px 0 rgba(255,255,255,.25); }
+.btn-primary:hover { box-shadow: 0 16px 40px -8px rgba(211, 32, 112, .85), inset 0 1px 0 rgba(255,255,255,.25); }
+.btn-ghost { color: var(--ink); border: 1.5px solid rgba(244,246,251,.28); background: rgba(244,246,251,.04); backdrop-filter: blur(8px); }
+.btn-ghost:hover { border-color: rgba(244,246,251,.6); background: rgba(244,246,251,.08); }
+.btn .arrow { transition: transform .25s; }
+.btn:hover .arrow { transform: translateX(3px); }
+
+/* header */
+.head { position: absolute; z-index: 20; left: 0; right: 0; top: 0; }
+.head .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 18px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--font-display); font-size: 20px; letter-spacing: .01em; }
+.brand img { width: 34px; height: 34px; }
+.nav { display: flex; align-items: center; gap: 4px; }
+.nav a { text-decoration: none; color: var(--muted); font-weight: 800; font-size: 15px; padding: 8px 12px; border-radius: 999px; transition: color .2s, background-color .2s; }
+.nav a:hover { color: var(--ink); background: rgba(244,246,251,.06); }
+.nav .btn { padding: 9px 16px; font-size: 14px; color: #fff; }
+@media (max-width: 640px) { .nav a:not(.btn) { display: none; } .brand span { display: none; } }
+
+/* language switch */
+.lang { position: relative; display: inline-grid; grid-template-columns: 1fr 1fr; padding: 3px; border-radius: 999px; background: rgba(244,246,251,.06); border: 1px solid var(--line); margin-inline: 6px; isolation: isolate; }
+.lang button { position: relative; z-index: 1; font: inherit; font-weight: 900; font-size: 12.5px; letter-spacing: .08em; color: var(--muted); background: none; border: 0; padding: 6px 11px; border-radius: 999px; cursor: pointer; transition: color .3s; min-width: 40px; }
+.lang button[aria-pressed="true"] { color: #07061A; }
+.lang-pill { position: absolute; z-index: 0; top: 3px; bottom: 3px; left: 3px; width: calc(50% - 3px); border-radius: 999px; background: var(--ink); transition: transform .45s cubic-bezier(.16, 1, .3, 1); }
+.lang[data-active="es"] .lang-pill { transform: translateX(100%); }
+.ticker b { font-weight: inherit; }
+@media (prefers-reduced-motion: reduce) { .lang-pill { transition: none; } }
+
+/* hero */
+.hero { position: relative; min-height: 100svh; display: grid; place-items: center; overflow: hidden; isolation: isolate; padding-top: max(84px, env(safe-area-inset-top, 0px)); padding-bottom: 118px; }
+.orb { position: absolute; z-index: -1; border-radius: 50%; filter: blur(70px); opacity: .55; pointer-events: none; }
+.orb.o1 { width: 46vmax; height: 46vmax; left: -14vmax; top: -10vmax; background: radial-gradient(circle, var(--blue), transparent 65%); animation: drift1 18s ease-in-out infinite; }
+.orb.o2 { width: 40vmax; height: 40vmax; right: -12vmax; top: 6vmax; background: radial-gradient(circle, var(--magenta), transparent 65%); opacity: .42; animation: drift2 22s ease-in-out infinite; }
+.orb.o3 { width: 30vmax; height: 30vmax; left: 34%; bottom: -16vmax; background: radial-gradient(circle, var(--orange), transparent 65%); opacity: .3; animation: drift3 20s ease-in-out infinite; }
+@keyframes drift1 { 50% { transform: translate(6vmax, 4vmax) scale(1.08); } }
+@keyframes drift2 { 50% { transform: translate(-5vmax, 5vmax) scale(.94); } }
+@keyframes drift3 { 50% { transform: translate(4vmax, -3vmax) scale(1.1); } }
+.grid-lines { position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .5;
+  background-image: linear-gradient(rgba(244,246,251,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(244,246,251,.045) 1px, transparent 1px);
+  background-size: 64px 64px; -webkit-mask: radial-gradient(ellipse at 50% 40%, #000 20%, transparent 70%); mask: radial-gradient(ellipse at 50% 40%, #000 20%, transparent 70%); }
+.hero-inner { display: grid; justify-items: center; text-align: center; gap: 22px; width: 100%; }
+.logo { position: relative; width: min(640px, 92vw, 62vh); max-width: 100%; aspect-ratio: 1536 / 1024; will-change: transform, opacity; }
+.logo img, .logo .ring, .logo .shine { position: absolute; inset: 0; width: 100%; height: 100%; }
+.logo img { display: block; user-select: none; -webkit-user-drag: none; }
+.layer { opacity: 0; }
+.final { opacity: 0; }
+.logo.done .layer { opacity: 0; }
+.logo.done .final { opacity: 1; }
+.ring { pointer-events: none; opacity: 0; }
+.ring::before { content: ""; position: absolute; left: 50%; top: 30%; width: 34%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; border: 2px solid var(--magenta); }
+.shine { pointer-events: none; opacity: 0; background: linear-gradient(105deg, transparent 42%, rgba(255,255,255,.7) 50%, transparent 58%) no-repeat; background-size: 260% 100%; background-position: 130% 0;
+  -webkit-mask: url(layers/logo-full.webp) center / 100% 100% no-repeat; mask: url(layers/logo-full.webp) center / 100% 100% no-repeat; }
+.hero h1 { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(34px, 5.6vw, 64px); line-height: 1.02; letter-spacing: .005em; text-wrap: balance; }
+.hero h1 .grad { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero p.lead { margin: 0; color: var(--muted); font-size: clamp(16px, 1.6vw, 19px); max-width: 46ch; font-weight: 500; }
+.ctas { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 4px; }
+.reveal { opacity: 0; transform: translateY(18px); }
+.scroll-cue { position: absolute; left: 50%; bottom: max(22px, env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); display: grid; justify-items: center; gap: 8px; color: var(--muted); font-size: 11px; font-weight: 900; letter-spacing: .24em; text-transform: uppercase; text-decoration: none; }
+.scroll-cue .track { width: 2px; height: 38px; border-radius: 2px; background: rgba(244,246,251,.15); overflow: hidden; position: relative; }
+.scroll-cue .track::after { content: ""; position: absolute; left: 0; right: 0; top: -40%; height: 40%; background: var(--gradient); animation: cue 1.8s cubic-bezier(.6,0,.3,1) infinite; }
+@keyframes cue { to { top: 100%; } }
+
+/* showcase: pinned while the products slide in */
+.showcase { position: relative; height: 320vh; }
+.pin { position: sticky; top: 0; height: 100svh; overflow: hidden; display: grid; grid-template-rows: auto 1fr; padding-top: max(56px, env(safe-area-inset-top, 0px)); isolation: isolate; }
+.pin::before { content: ""; position: absolute; inset: 0; z-index: -2; background: radial-gradient(ellipse 70% 55% at 50% 60%, var(--bg-2), var(--bg) 70%); }
+.show-head { text-align: center; display: grid; gap: 12px; justify-items: center; padding-inline: 20px; }
+.show-head h2 { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(32px, 5.4vw, 66px); line-height: 1.02; text-wrap: balance; }
+.show-head h2 .w { display: inline-block; will-change: transform, opacity; }
+.show-head h2 .w.g { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.giant { position: absolute; z-index: -1; left: 50%; top: 56%; transform: translate(-50%, -50%); white-space: nowrap; font-family: var(--font-display); font-size: clamp(110px, 21vw, 300px); line-height: 1; color: transparent; -webkit-text-stroke: 1.5px rgba(244,246,251,.09); pointer-events: none; will-change: transform; user-select: none; }
+.stagearea { position: relative; }
+.item { position: absolute; top: 47%; width: clamp(150px, min(30vw, 44vh), 420px); display: grid; justify-items: center; gap: 14px; will-change: transform; }
+.item.left { left: 9%; }
+.item.right { right: 9%; }
+.item .art { position: relative; width: 100%; }
+.item .art svg { display: block; width: 100%; height: auto; position: relative; z-index: 1; filter: drop-shadow(0 30px 40px rgba(0,0,0,.55)); }
+.item .halo { position: absolute; inset: 8% 4%; border-radius: 50%; filter: blur(50px); opacity: .55; z-index: 0; }
+.item.left .halo { background: radial-gradient(circle, var(--blue), transparent 70%); }
+.item.right .halo { background: radial-gradient(circle, var(--pink), transparent 70%); }
+.float { animation: float 6s ease-in-out infinite; }
+.item.right .float { animation-delay: -3s; }
+@keyframes float { 50% { transform: translateY(-12px) rotate(.6deg); } }
+.cap { text-align: center; display: grid; gap: 4px; justify-items: center; will-change: transform, opacity; }
+.cap h3 { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(20px, 2.2vw, 28px); letter-spacing: .01em; }
+.cap p { margin: 0; color: var(--muted); font-size: 14.5px; max-width: 28ch; }
+.cap a { margin-top: 6px; font-weight: 900; font-size: 14px; text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); transition: border-color .2s, background-color .2s; }
+.cap a:hover { border-color: rgba(244,246,251,.5); background: rgba(244,246,251,.06); }
+.tag { position: absolute; z-index: 2; top: 6%; font-size: 10.5px; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); background: rgba(7,6,26,.7); border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; backdrop-filter: blur(6px); }
+.item.left .tag { left: 4%; }
+.item.right .tag { right: 4%; }
+.end-cta { position: absolute; left: 50%; bottom: max(28px, env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); will-change: opacity, transform; }
+@media (max-width: 720px) {
+  .item { width: 47vw; top: 40%; }
+  .show-head h2 { font-size: 34px; }
+  .item.left { left: 3%; } .item.right { right: 3%; }
+  .cap p { display: none; }
+  .tag { display: none; }
+}
+
+/* ticker */
+.ticker { border-block: 1px solid var(--line); overflow: hidden; padding-block: 22px; }
+.ticker-track { display: flex; gap: 48px; width: max-content; animation: tick 30s linear infinite; }
+.ticker span { display: inline-flex; align-items: center; gap: 14px; font-family: var(--font-display); font-size: clamp(22px, 3vw, 34px); white-space: nowrap; color: rgba(244,246,251,.85); }
+.ticker i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+@keyframes tick { to { transform: translateX(-50%); } }
+
+/* close */
+.close { padding-block: 96px; text-align: center; position: relative; isolation: isolate; overflow: hidden; }
+.close::before { content: ""; position: absolute; z-index: -1; left: 50%; top: 50%; width: 70vmax; height: 40vmax; transform: translate(-50%, -50%); background: radial-gradient(ellipse, rgba(133,34,205,.35), transparent 65%); filter: blur(30px); }
+.close .wrap { display: grid; gap: 18px; justify-items: center; }
+.close h2 { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(32px, 5vw, 58px); line-height: 1.04; text-wrap: balance; }
+.close p { margin: 0; color: var(--muted); max-width: 44ch; font-size: 17px; }
+.foot { border-top: 1px solid var(--line); }
+.foot .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-block: 22px; color: var(--muted); font-size: 14px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .orb, .float, .ticker-track, .scroll-cue .track::after { animation: none !important; }
+  .reveal { opacity: 1; transform: none; }
+  .btn, .btn .arrow { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="head">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="icon.webp" alt="" width="34" height="34"><span>Creative Sublimation</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="#showcase" data-i18n="navProducts">Products</a>
+      <a href="#close" data-i18n="navHow">How it works</a>
+      <div class="lang" role="group" aria-label="Language / Idioma">
+        <span class="lang-pill" aria-hidden="true"></span>
+        <button type="button" data-lang="en" aria-pressed="true" lang="en" title="English">EN</button>
+        <button type="button" data-lang="es" aria-pressed="false" lang="es" title="Español">ES</button>
+      </div>
+      <a class="btn btn-primary" href="design.html" data-i18n="designNow">Design now</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" id="hero">
+    <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+    <div class="grid-lines"></div>
+    <div class="wrap hero-inner">
+      <div class="logo" id="logo" role="img" aria-label="Creative Sublimation logo" data-i18n-aria="logoAria">
+        <img class="layer" id="lSplashL" src="layers/splash-left.webp" alt="">
+        <img class="layer" id="lSplashR" src="layers/splash-right.webp" alt="">
+        <img class="layer" id="lDrips" src="layers/drips.webp" alt="">
+        <div class="ring" id="ring"></div>
+        <img class="layer" id="lShirt" src="layers/shirt.webp" alt="">
+        <img class="layer" id="lBanner" src="layers/banner.webp" alt="">
+        <img class="final" id="final" src="layers/logo-full.webp" alt="">
+        <div class="shine" id="shine"></div>
+      </div>
+      <h1 class="reveal" data-i18n-html="heroTitle">Your design, <span class="grad">pressed to last.</span></h1>
+      <p class="lead reveal" data-i18n="heroLead">Custom shirts, mugs, tumblers and more. Bring a photo or an idea, and we'll press it in full color.</p>
+      <div class="ctas reveal">
+        <a class="btn btn-primary" href="design.html" data-i18n-html="designNowArrow">Design now <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="btn btn-ghost" href="#showcase" data-i18n="viewProducts">View our products</a>
+      </div>
+    </div>
+    <a class="scroll-cue" href="#showcase"><span data-i18n="scroll">Scroll</span><span class="track"></span></a>
+  </section>
+
+  <section class="showcase" id="showcase" aria-label="Featured products">
+    <div class="pin">
+      <div class="show-head">
+        <span class="eyebrow" id="sEyebrow" data-i18n="madeToOrder">Made to order</span>
+        <h2 id="sTitle"><span class="w" data-i18n="w1">Your</span> <span class="w" data-i18n="w2">art.</span> <span class="w g" data-i18n="w3">On</span> <span class="w g" data-i18n="w4">everything.</span></h2>
+      </div>
+      <div class="stagearea">
+        <div class="giant" id="giant" aria-hidden="true">CREATIVE SUBLIMATION</div>
+
+        <div class="item left" id="iShirt">
+          <div class="art">
+            <div class="halo"></div>
+            <span class="tag" data-i18n="sample">Sample design</span>
+            <div class="float">
+              <svg viewBox="0 0 400 430" role="img" aria-label="White T-shirt printed with the Creative Sublimation design">
+                <defs>
+                  <linearGradient id="tee" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".6" stop-color="#F1F3F9"/><stop offset="1" stop-color="#D9DEEA"/></linearGradient>
+                  <linearGradient id="teeShade" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".10"/><stop offset=".18" stop-color="#000" stop-opacity="0"/><stop offset=".82" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".12"/></linearGradient>
+                  <clipPath id="teeClip"><path d="M120 40 Q140 30 160 26 Q200 58 240 26 Q260 30 280 40 L372 88 Q382 94 378 104 L346 168 Q341 178 330 174 L300 162 L300 404 Q300 418 286 418 L114 418 Q100 418 100 404 L100 162 L70 174 Q59 178 54 168 L22 104 Q18 94 28 88 Z"/></clipPath>
+                </defs>
+                <path d="M120 40 Q140 30 160 26 Q200 58 240 26 Q260 30 280 40 L372 88 Q382 94 378 104 L346 168 Q341 178 330 174 L300 162 L300 404 Q300 418 286 418 L114 418 Q100 418 100 404 L100 162 L70 174 Q59 178 54 168 L22 104 Q18 94 28 88 Z" fill="url(#tee)"/>
+                <g clip-path="url(#teeClip)">
+                  <image href="layers/logo-full.webp" x="112" y="104" width="176" height="117"/>
+                  <rect width="400" height="430" fill="url(#teeShade)"/>
+                  <path d="M100 162 Q112 240 104 330 M300 162 Q288 250 296 340" fill="none" stroke="#000" stroke-opacity=".05" stroke-width="10" stroke-linecap="round"/>
+                </g>
+                <path d="M160 26 Q200 58 240 26" fill="none" stroke="#C9D0E0" stroke-width="7" stroke-linecap="round"/>
+                <path d="M70 174 L54 168 M330 174 L346 168" stroke="#C9D0E0" stroke-width="3"/>
+              </svg>
+            </div>
+          </div>
+          <div class="cap" id="cShirt">
+            <h3 data-i18n="shirtTitle">T-shirts &amp; hoodies</h3>
+            <p data-i18n="shirtText">Soft polyester with vivid color that won't crack or peel.</p>
+            <a href="design.html#shirt" data-i18n-html="shirtLink">Design a shirt <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+
+        <div class="item right" id="iMug">
+          <div class="art">
+            <div class="halo"></div>
+            <span class="tag" data-i18n="sample">Sample design</span>
+            <div class="float">
+              <svg viewBox="0 0 440 400" role="img" aria-label="White mug with a pink handle, printed with the Creative Sublimation design">
+                <defs>
+                  <linearGradient id="mugShade" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0" stop-color="#000" stop-opacity=".28"/><stop offset=".14" stop-color="#000" stop-opacity=".04"/>
+                    <stop offset=".3" stop-color="#fff" stop-opacity=".55"/><stop offset=".42" stop-color="#fff" stop-opacity="0"/>
+                    <stop offset=".8" stop-color="#000" stop-opacity=".05"/><stop offset="1" stop-color="#000" stop-opacity=".32"/>
+                  </linearGradient>
+                  <linearGradient id="handle" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E032BA"/><stop offset="1" stop-color="#B0175A"/></linearGradient>
+                  <clipPath id="mugClip"><rect x="60" y="74" width="250" height="266" rx="18"/></clipPath>
+                </defs>
+                <path d="M306 128 C 408 120, 410 290, 306 284" fill="none" stroke="url(#handle)" stroke-width="36" stroke-linecap="round"/>
+                <path d="M306 150 C 376 146, 378 264, 306 262" fill="none" stroke="#07061A" stroke-opacity=".35" stroke-width="6"/>
+                <rect x="60" y="74" width="250" height="266" rx="18" fill="#FFFFFF"/>
+                <g clip-path="url(#mugClip)">
+                  <image href="layers/logo-full.webp" x="62" y="128" width="246" height="164"/>
+                  <rect x="60" y="74" width="250" height="266" fill="url(#mugShade)"/>
+                </g>
+                <ellipse cx="185" cy="76" rx="125" ry="20" fill="#F4F6FB"/>
+                <ellipse cx="185" cy="78" rx="111" ry="14" fill="url(#handle)"/>
+                <ellipse cx="185" cy="340" rx="125" ry="12" fill="#000" opacity=".12"/>
+              </svg>
+            </div>
+          </div>
+          <div class="cap" id="cMug">
+            <h3 data-i18n="mugTitle">Mugs &amp; tumblers</h3>
+            <p data-i18n="mugText">Glossy ceramic and stainless steel. Dishwasher-safe prints.</p>
+            <a href="design.html#mug" data-i18n-html="mugLink">Design a mug <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </div>
+      <div class="end-cta" id="endCta"><a class="btn btn-ghost" href="#close" data-i18n-html="seeHow">See how it works <span class="arrow" aria-hidden="true">↓</span></a></div>
+    </div>
+  </section>
+
+  <div class="ticker" aria-label="What we print" data-i18n-aria="tickerAria">
+    <div class="ticker-track" id="ticker">
+      <span><i style="background: var(--sky)"></i><b data-i18n="tShirts">T-shirts</b></span>
+      <span><i style="background: var(--magenta)"></i><b data-i18n="tHoodies">Hoodies</b></span>
+      <span><i style="background: var(--yellow)"></i><b data-i18n="tMugs">Mugs</b></span>
+      <span><i style="background: var(--purple)"></i><b data-i18n="tTumblers">Tumblers</b></span>
+      <span><i style="background: var(--orange)"></i><b data-i18n="tBottles">Water bottles</b></span>
+      <span><i style="background: var(--blue)"></i><b data-i18n="tPouches">Pencil pouches</b></span>
+      <span><i style="background: var(--pink)"></i><b data-i18n="tChurch">Church &amp; event orders</b></span>
+      <span><i style="background: var(--sky)"></i><b data-i18n="tPets">Pet portraits</b></span>
+    </div>
+  </div>
+
+  <section class="close" id="close">
+    <div class="wrap">
+      <span class="eyebrow" data-i18n="threeSteps">Three steps</span>
+      <h2 data-i18n-html="closeTitle">Send the idea. Get a quote. <span style="background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent;">We press it.</span></h2>
+      <p data-i18n="closeText">Upload a photo or describe what you want. We finish the artwork, text you a price, and press it for local pickup or shipping.</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href="design.html" data-i18n-html="designNowArrow">Design now <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="btn btn-ghost" href="#showcase" data-i18n="viewProducts">View our products</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>© 2026 Creative Sublimation</span>
+    <span data-i18n="footer">Custom sublimation printing · Minnesota</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const ease = t => 1 - Math.pow(1 - t, 3);
+
+  // remember this page so the design page's Home link comes straight back
+  try { sessionStorage.setItem('cs-home', location.href.split('#')[0]); } catch (err) {}
+
+  /* ---------- English / Español ---------- */
+  const I18N = {
+    en: {
+      navProducts: 'Products', navHow: 'How it works', designNow: 'Design now',
+      logoAria: 'Creative Sublimation logo',
+      heroTitle: 'Your design, <span class="grad">pressed to last.</span>',
+      heroLead: "Custom shirts, mugs, tumblers and more. Bring a photo or an idea, and we'll press it in full color.",
+      designNowArrow: 'Design now <span class="arrow" aria-hidden="true">→</span>',
+      viewProducts: 'View our products', scroll: 'Scroll', madeToOrder: 'Made to order',
+      w1: 'Your', w2: 'art.', w3: 'On', w4: 'everything.', sample: 'Sample design',
+      shirtTitle: 'T-shirts & hoodies', shirtText: "Soft polyester with vivid color that won't crack or peel.",
+      shirtLink: 'Design a shirt <span aria-hidden="true">→</span>',
+      mugTitle: 'Mugs & tumblers', mugText: 'Glossy ceramic and stainless steel. Dishwasher-safe prints.',
+      mugLink: 'Design a mug <span aria-hidden="true">→</span>',
+      seeHow: 'See how it works <span class="arrow" aria-hidden="true">↓</span>',
+      tickerAria: 'What we print',
+      tShirts: 'T-shirts', tHoodies: 'Hoodies', tMugs: 'Mugs', tTumblers: 'Tumblers', tBottles: 'Water bottles',
+      tPouches: 'Pencil pouches', tChurch: 'Church & event orders', tPets: 'Pet portraits',
+      threeSteps: 'Three steps',
+      closeTitle: 'Send the idea. Get a quote. <span style="background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent;">We press it.</span>',
+      closeText: 'Upload a photo or describe what you want. We finish the artwork, text you a price, and press it for local pickup or shipping.',
+      footer: 'Custom sublimation printing · Minnesota'
+    },
+    es: {
+      navProducts: 'Productos', navHow: 'Cómo funciona', designNow: 'Diseña ahora',
+      logoAria: 'Logotipo de Creative Sublimation',
+      heroTitle: 'Tu diseño, <span class="grad">estampado para durar.</span>',
+      heroLead: 'Camisetas, tazas, termos y mucho más, personalizados. Trae una foto o una idea y la estampamos a todo color.',
+      designNowArrow: 'Diseña ahora <span class="arrow" aria-hidden="true">→</span>',
+      viewProducts: 'Ver nuestros productos', scroll: 'Desliza', madeToOrder: 'Hecho por encargo',
+      w1: 'Tu', w2: 'arte.', w3: 'En', w4: 'todo.', sample: 'Diseño de muestra',
+      shirtTitle: 'Camisetas y sudaderas', shirtText: 'Poliéster suave con colores vivos que no se agrietan ni se despegan.',
+      shirtLink: 'Diseña una camiseta <span aria-hidden="true">→</span>',
+      mugTitle: 'Tazas y termos', mugText: 'Cerámica brillante y acero inoxidable. Diseños aptos para lavavajillas.',
+      mugLink: 'Diseña una taza <span aria-hidden="true">→</span>',
+      seeHow: 'Mira cómo funciona <span class="arrow" aria-hidden="true">↓</span>',
+      tickerAria: 'Lo que estampamos',
+      tShirts: 'Camisetas', tHoodies: 'Sudaderas', tMugs: 'Tazas', tTumblers: 'Termos', tBottles: 'Botellas de agua',
+      tPouches: 'Estuches', tChurch: 'Pedidos para iglesias y eventos', tPets: 'Retratos de mascotas',
+      threeSteps: 'Tres pasos',
+      closeTitle: 'Envía tu idea. Recibe tu precio. <span style="background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent;">Nosotros lo estampamos.</span>',
+      closeText: 'Sube una foto o describe lo que quieres. Terminamos el diseño, te enviamos el precio por mensaje y lo estampamos para recoger en persona o enviar.',
+      footer: 'Impresión por sublimación personalizada · Minnesota'
+    }
+  };
+  const langBox = document.querySelector('.lang');
+  let current = 'en';
+  function applyLang(lang, animate) {
+    const t = I18N[lang]; if (!t) return;
+    current = lang;
+    document.documentElement.lang = lang;
+    langBox.dataset.active = lang;
+    langBox.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+    const swap = () => {
+      document.querySelectorAll('[data-i18n]').forEach(el => { const v = t[el.dataset.i18n]; if (v != null) el.textContent = v; });
+      document.querySelectorAll('[data-i18n-html]').forEach(el => { const v = t[el.dataset.i18nHtml]; if (v != null) el.innerHTML = v; });
+      document.querySelectorAll('[data-i18n-aria]').forEach(el => { const v = t[el.dataset.i18nAria]; if (v != null) el.setAttribute('aria-label', v); });
+    };
+    if (!animate || reduce) { swap(); return; }
+    const els = [...document.querySelectorAll('[data-i18n], [data-i18n-html]')].filter(el => {
+      const r = el.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight;
+    });
+    els.forEach(el => el.animate([{ opacity: 1, filter: 'blur(0px)' }, { opacity: 0, filter: 'blur(6px)' }], { duration: 160, easing: 'ease-in' }));
+    setTimeout(() => {
+      swap();
+      els.forEach(el => el.animate([{ opacity: 0, filter: 'blur(6px)', transform: 'translateY(6px)' }, { opacity: 1, filter: 'blur(0px)', transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.16, 1, .3, 1)' }));
+    }, 150);
+  }
+  langBox.addEventListener('click', e => {
+    const b = e.target.closest('button[data-lang]'); if (!b || b.dataset.lang === current) return;
+    try { localStorage.setItem('cs-lang', b.dataset.lang); } catch (err) {}
+    applyLang(b.dataset.lang, true);
+  });
+  let startLang = 'en';
+  try { startLang = localStorage.getItem('cs-lang') || ''; } catch (err) { startLang = ''; }
+  if (!startLang) startLang = (navigator.language || 'en').toLowerCase().startsWith('es') ? 'es' : 'en';
+  applyLang(startLang, false);
+
+  // ticker: duplicate the row so it loops seamlessly
+  const tk = $('ticker'); tk.innerHTML += tk.innerHTML;
+  tk.querySelectorAll('span').forEach((s, i) => { if (i >= tk.children.length / 2) s.setAttribute('aria-hidden', 'true'); });
+
+  /* ---------- logo intro: the real logo's layers fly in and land on the exact logo ---------- */
+  const logo = $('logo');
+  const EXPO = 'cubic-bezier(.16, 1, .3, 1)', SPRING = 'cubic-bezier(.34, 1.45, .64, 1)';
+  $('lShirt').style.transformOrigin = '49.5% 30%';
+  $('lSplashL').style.transformOrigin = '40% 40%';
+  $('lSplashR').style.transformOrigin = '60% 40%';
+  $('lBanner').style.transformOrigin = '50% 66%';
+  $('lDrips').style.transformOrigin = '50% 76%';
+  function intro() {
+    const reveals = [...document.querySelectorAll('.hero .reveal')];
+    if (reduce) { logo.classList.add('done'); return; }
+    const run = [];
+    const A = (el, kf, o) => { const a = el.animate(kf, Object.assign({ fill: 'both' }, o)); run.push(a); return a; };
+    A($('lShirt'), [{ opacity: 0, transform: 'translateY(6%) scale(.55)', filter: 'blur(14px)' }, { opacity: 1, transform: 'translateY(-1%) scale(1.04)', filter: 'blur(0px)', offset: .65 }, { opacity: 1, transform: 'none', filter: 'blur(0px)' }], { duration: 720, delay: 150, easing: EXPO });
+    A($('ring'), [{ opacity: .7, transform: 'scale(.4)' }, { opacity: 0, transform: 'scale(1.9)' }], { duration: 700, delay: 350, easing: 'cubic-bezier(.2,.7,.3,1)' });
+    A($('lSplashL'), [{ opacity: 0, transform: 'translateX(14%) scale(.25) rotate(-14deg)', filter: 'blur(10px)' }, { opacity: 1, transform: 'translateX(-.6%) scale(1.04) rotate(1.5deg)', filter: 'blur(0px)', offset: .7 }, { opacity: 1, transform: 'none', filter: 'blur(0px)' }], { duration: 820, delay: 380, easing: SPRING });
+    A($('lSplashR'), [{ opacity: 0, transform: 'translateX(-14%) scale(.25) rotate(14deg)', filter: 'blur(10px)' }, { opacity: 1, transform: 'translateX(.6%) scale(1.04) rotate(-1.5deg)', filter: 'blur(0px)', offset: .7 }, { opacity: 1, transform: 'none', filter: 'blur(0px)' }], { duration: 820, delay: 440, easing: SPRING });
+    A($('lBanner'), [{ opacity: 0, transform: 'translateY(5%) scale(.92, .7)', clipPath: 'inset(0 50% 0 50%)', filter: 'blur(6px)' }, { opacity: 1, transform: 'translateY(-.5%) scale(1.015, 1.03)', clipPath: 'inset(0 0% 0 0%)', filter: 'blur(0px)', offset: .7 }, { opacity: 1, transform: 'none', clipPath: 'inset(0 0% 0 0%)', filter: 'blur(0px)' }], { duration: 780, delay: 710, easing: EXPO });
+    A($('lDrips'), [{ opacity: 0, transform: 'translateY(-3%)', clipPath: 'inset(0 0 30% 0)' }, { opacity: 1, transform: 'translateY(.4%)', clipPath: 'inset(0 0 0% 0)', offset: .75 }, { opacity: 1, transform: 'none', clipPath: 'inset(0 0 0% 0)' }], { duration: 900, delay: 1050, easing: 'cubic-bezier(.33, 0, .2, 1)' });
+    reveals.forEach((el, i) => el.animate([{ opacity: 0, transform: 'translateY(18px)', filter: 'blur(6px)' }, { opacity: 1, transform: 'none', filter: 'blur(0px)' }], { duration: 800, delay: 1250 + i * 120, easing: EXPO, fill: 'both' }));
+    const sh = A($('shine'), [{ opacity: 1, backgroundPosition: '130% 0' }, { opacity: 1, backgroundPosition: '-30% 0', offset: .95 }, { opacity: 0, backgroundPosition: '-30% 0' }], { duration: 950, delay: 1750, easing: 'cubic-bezier(.45, 0, .25, 1)' });
+    sh.finished.then(() => { logo.classList.add('done'); run.forEach(a => a.cancel()); }).catch(() => {});
+  }
+  const imgs = [...logo.querySelectorAll('img')];
+  Promise.all(imgs.map(i => i.decode ? i.decode().catch(() => {}) : 0)).then(intro);
+
+  /* ---------- scroll-linked motion ---------- */
+  const hero = $('hero'), sc = $('showcase');
+  const words = [...$('sTitle').querySelectorAll('.w')];
+  const shirt = $('iShirt'), mug = $('iMug'), capS = $('cShirt'), capM = $('cMug'), giant = $('giant'), endCta = $('endCta'), eyebrow = $('sEyebrow');
+  let ticking = false;
+  function update() {
+    ticking = false;
+    const vh = innerHeight, vw = innerWidth;
+    // hero: logo eases up and away as you leave
+    const hp = clamp(scrollY / (vh * .9));
+    logo.style.transform = `translateY(${(-hp * 70).toFixed(1)}px) scale(${(1 - hp * .12).toFixed(3)})`;
+    logo.style.opacity = (1 - hp * 1.1).toFixed(3);
+
+    // showcase progress 0 → 1 across the pinned scroll
+    const r = sc.getBoundingClientRect();
+    const p = clamp(-r.top / (sc.offsetHeight - vh));
+    if (reduce) { setFinal(); return; }
+    const h = ease(clamp((p - .0) / .22));
+    eyebrow.style.opacity = h.toFixed(3);
+    words.forEach((w, i) => {
+      const t = ease(clamp((p - i * .05) / .2));
+      w.style.opacity = t.toFixed(3);
+      w.style.transform = `translateY(${((1 - t) * 40).toFixed(1)}px)`;
+      w.style.filter = `blur(${((1 - t) * 8).toFixed(1)}px)`;
+    });
+    const a = ease(clamp((p - .08) / .42));
+    const off = (1 - a) * vw * .62;
+    shirt.style.transform = `translateY(-50%) translateX(${(-off).toFixed(1)}px) rotate(${(-6 - (1 - a) * 22).toFixed(2)}deg) scale(${(.72 + a * .28).toFixed(3)})`;
+    mug.style.transform = `translateY(-50%) translateX(${off.toFixed(1)}px) rotate(${(6 + (1 - a) * 22).toFixed(2)}deg) scale(${(.72 + a * .28).toFixed(3)})`;
+    const c = ease(clamp((p - .5) / .16));
+    [capS, capM].forEach(el => { el.style.opacity = c.toFixed(3); el.style.transform = `translateY(${((1 - c) * 24).toFixed(1)}px)`; });
+    giant.style.transform = `translate(calc(-50% + ${((.5 - p) * vw * .5).toFixed(1)}px), -50%)`;
+    const e = ease(clamp((p - .78) / .14));
+    endCta.style.opacity = e.toFixed(3);
+    endCta.style.transform = `translateX(-50%) translateY(${((1 - e) * 20).toFixed(1)}px)`;
+    endCta.style.pointerEvents = e > .5 ? 'auto' : 'none';
+  }
+  function setFinal() {
+    eyebrow.style.opacity = 1;
+    words.forEach(w => { w.style.opacity = 1; w.style.transform = 'none'; });
+    shirt.style.transform = 'translateY(-50%) rotate(-6deg)';
+    mug.style.transform = 'translateY(-50%) rotate(6deg)';
+    [capS, capM, endCta].forEach(el => { el.style.opacity = 1; });
+    endCta.style.transform = 'translateX(-50%)';
+  }
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  addEventListener('resize', update);
+  update();
+})();
+</script>
+</body>
+</html>

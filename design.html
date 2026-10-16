@@ -1,0 +1,1090 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Creative Sublimation · Design</title>
+<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@400;600;700;800;900&display=swap">
+<style>
+html { color-scheme: light; }
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; font: 14px/1.5 system-ui, sans-serif; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+/* Layout: logo hero, then the design tool (live preview left, order steps right), products, gallery, how it works. Brand palette from the Creative Sublimation brand guide. */
+:root {
+  --bg: #F4F6FB;            /* Cloud */
+  --surface: #FFFFFF;       /* White */
+  --stage: #E8EDF9;         /* Blue tint */
+  --dot: #D2DCF3;
+  --ink: #120D30;           /* Outline Ink */
+  --muted: #5A6178;         /* Slate */
+  --line: #DDE2EE;          /* Mist */
+  --blue: #194CC6;          /* Splash Blue, primary */
+  --blue-ink: #FFFFFF;
+  --accent: #D32070;        /* Hot Pink, secondary */
+  --accent-ink: #FFFFFF;
+  --cyan: #194CC6;
+  --sky: #2880E2;
+  --yellow: #F0C336;        /* Sunshine Yellow */
+  --purple: #8522CD;        /* Electric Purple */
+  --orange: #E97023;        /* Tangerine */
+  --magenta: #E032BA;
+  --pink-tint: #FBE9F1;
+  --yellow-tint: #FCF3D7;
+  --purple-tint: #F3E9FA;
+  --ok: #138a52;
+  --warn: #b26a00;
+  --bad: #c0322b;
+  --focus: #194CC6;
+  --shadow: 0 1px 2px rgba(18,13,48,.06), 0 10px 28px rgba(25,76,198,.08);
+  --gradient: linear-gradient(90deg, #194CC6, #8522CD 38%, #E032BA 68%, #E97023);
+  --font-display: "Lilita One", "Arial Rounded MT Bold", "Arial Black", system-ui, sans-serif;
+  --font-body: "Nunito", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "Nunito", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E0B24; --surface: #18143A; --stage: #1E1A48; --dot: #2D2862;
+    --ink: #F1EFFA; --muted: #A9A6C6; --line: #2D2862;
+    --blue: #4F7EEB; --blue-ink: #0E0B24; --accent: #FF4D96; --accent-ink: #1A0712;
+    --cyan: #4F7EEB; --sky: #5AA3F0;
+    --yellow: #FFD54F; --purple: #A964F0; --orange: #FF8A3D; --magenta: #F05CCF;
+    --pink-tint: #2A1638; --yellow-tint: #2A2530; --purple-tint: #241A4A;
+    --ok: #3cc985; --warn: #f0a83a; --bad: #ff6b62; --focus: #5AA3F0;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.3);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E0B24; --surface: #18143A; --stage: #1E1A48; --dot: #2D2862;
+  --ink: #F1EFFA; --muted: #A9A6C6; --line: #2D2862;
+  --blue: #4F7EEB; --blue-ink: #0E0B24; --accent: #FF4D96; --accent-ink: #1A0712;
+  --cyan: #4F7EEB; --sky: #5AA3F0;
+  --yellow: #FFD54F; --purple: #A964F0; --orange: #FF8A3D; --magenta: #F05CCF;
+  --pink-tint: #2A1638; --yellow-tint: #2A2530; --purple-tint: #241A4A;
+  --ok: #3cc985; --warn: #f0a83a; --bad: #ff6b62; --focus: #5AA3F0;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.3);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.5; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.05; margin: 0; text-wrap: balance; letter-spacing: 0.005em; }
+p { margin: 0; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.mono { font-family: var(--font-body); font-weight: 800; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+
+/* ink strip: the CMY bar from a printer test page */
+.inkbar { height: 6px; background: var(--gradient); }
+
+/* header */
+.site-head { background: var(--surface); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 23px; letter-spacing: .01em; text-decoration: none; color: var(--blue); }
+.brand img { width: 40px; height: 40px; }
+.nav { display: flex; gap: 6px; flex-wrap: wrap; }
+.nav a { color: var(--muted); text-decoration: none; font-weight: 600; font-size: 15px; padding: 6px 10px; border-radius: 8px; }
+.nav a:hover { color: var(--ink); background: var(--bg); }
+.nav a.cta { background: var(--accent); color: var(--accent-ink); }
+
+/* hero / designer */
+.hero { padding-block: 32px 56px; }
+.intro { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 24px; align-items: center; margin-bottom: 32px; }
+@media (max-width: 760px) { .intro { grid-template-columns: minmax(0, 1fr); } .hero-logo { order: -1; max-width: 420px; } }
+.intro-text { display: grid; gap: 12px; min-width: 0; }
+.eyebrow { color: var(--accent); }
+.intro h1 { font-size: clamp(38px, 6.2vw, 66px); line-height: 1; }
+.intro h1 em { font-style: normal; background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.intro p { color: var(--muted); font-size: 18px; max-width: 54ch; }
+.hero-logo { width: 100%; max-width: 100%; height: auto; justify-self: center; filter: drop-shadow(0 12px 24px rgba(25,76,198,.18)); }
+.hero-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 6px 12px; font-size: 14px; font-weight: 700; background: var(--surface); border: 1px solid var(--line); color: var(--ink); }
+.pill i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+.designer { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+@media (max-width: 880px) { .designer { grid-template-columns: minmax(0, 1fr); } }
+
+.stage-col { display: grid; gap: 12px; position: sticky; top: 16px; }
+@media (max-width: 880px) { .stage-col { position: static; } }
+.stage { position: relative; aspect-ratio: 1; max-width: 100%; border-radius: 22px; background-color: var(--stage); background-image: radial-gradient(var(--dot) 1.2px, transparent 1.3px); background-size: 18px 18px; overflow: hidden; border: 1px solid var(--line); }
+.stage svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.stage-chip { position: absolute; left: 14px; top: 14px; z-index: 3; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 5px 11px; color: var(--muted); }
+.stage-chip b { color: var(--accent); font-weight: 800; }
+
+.print-area { position: absolute; overflow: hidden; container-type: inline-size; touch-action: none; border-radius: 4px; }
+.print-area.has-img { cursor: grab; }
+.print-area.dragging { cursor: grabbing; }
+.guides .print-area { outline: 2px dashed var(--accent); outline-offset: 0; }
+.print-tag { position: absolute; z-index: 2; transform: translateY(-100%); padding-bottom: 4px; color: var(--accent); white-space: nowrap; font-size: 10px; pointer-events: none; }
+.stage:not(.guides) .print-tag { display: none; }
+#designImg { position: absolute; left: 50%; top: 50%; width: 100%; height: 100%; object-fit: contain; transform-origin: center; user-select: none; -webkit-user-drag: none; pointer-events: none; }
+.overlay-text { position: absolute; left: 4%; right: 4%; bottom: 6%; text-align: center; font-family: var(--font-display); font-weight: 400; line-height: 1; letter-spacing: -0.01em; overflow-wrap: anywhere; pointer-events: none; }
+.idea-note, .empty-note { position: absolute; inset: 6%; display: grid; place-content: center; text-align: center; gap: 6px; color: #3b4357; pointer-events: none; }
+.idea-note { font-size: 7.5cqw; line-height: 1.25; font-style: italic; }
+.idea-note small, .empty-note small { font-family: var(--font-mono); font-style: normal; font-size: 5cqw; letter-spacing: .05em; text-transform: uppercase; color: #a3127a; }
+.empty-note { font-size: 7cqw; font-weight: 600; }
+.shade { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: multiply; background: linear-gradient(90deg, rgba(0,0,0,.28), rgba(0,0,0,0) 22%, rgba(255,255,255,0) 50%, rgba(0,0,0,0) 78%, rgba(0,0,0,.3)); }
+
+.tools { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+.tool { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 14px; font-weight: 600; }
+.tool input[type="range"] { width: 110px; accent-color: var(--accent); }
+.tool-btn { border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 5px 10px; font-size: 14px; font-weight: 600; cursor: pointer; }
+.tool-btn:hover { border-color: var(--muted); }
+.tool input[type="checkbox"] { accent-color: var(--accent); width: 16px; height: 16px; }
+.hint { color: var(--muted); font-size: 14px; }
+
+.quality { display: flex; gap: 10px; align-items: flex-start; border-radius: 12px; padding: 10px 12px; font-size: 14px; border: 1px solid var(--line); background: var(--surface); }
+.quality .dot { width: 10px; height: 10px; border-radius: 50%; margin-top: 5px; flex: none; background: var(--muted); }
+.quality.good .dot { background: var(--ok); }
+.quality.ok .dot { background: var(--warn); }
+.quality.bad .dot { background: var(--bad); }
+.quality strong { display: block; }
+.quality span { color: var(--muted); }
+
+/* order panel */
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; box-shadow: var(--shadow); padding: 22px; display: grid; gap: 22px; min-width: 0; }
+.step { display: grid; gap: 12px; border: 0; margin: 0; padding: 0; min-width: 0; }
+.step + .step { border-top: 1px solid var(--line); padding-top: 20px; }
+.step-head { display: flex; align-items: baseline; gap: 10px; padding: 0; }
+.step-num { font-family: var(--font-display); font-size: 15px; color: var(--blue-ink); background: var(--blue); border-radius: 8px; padding: 1px 9px; }
+.step-head h2 { font-size: 23px; color: var(--ink); }
+
+.picker { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.pick { border: 1.5px solid var(--line); background: var(--bg); border-radius: 12px; padding: 8px 6px 9px; cursor: pointer; display: grid; justify-items: center; gap: 2px; font-weight: 600; font-size: 14px; }
+.pick svg { width: 54px; height: 54px; }
+.pick:hover { border-color: var(--muted); }
+.pick[aria-pressed="true"] { border-color: var(--accent); background: var(--surface); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent); }
+
+.tabs { display: inline-flex; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 3px; gap: 3px; justify-self: start; }
+.tab { border: 0; background: transparent; padding: 7px 14px; border-radius: 7px; font-weight: 600; font-size: 14px; cursor: pointer; color: var(--muted); }
+.tab[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+
+.drop { border: 2px dashed var(--line); border-radius: 14px; padding: 20px 16px; text-align: center; display: grid; gap: 6px; justify-items: center; background: var(--bg); transition: border-color .15s, background .15s; }
+.drop.over { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 7%, var(--bg)); }
+.drop strong { font-size: 16px; }
+.drop .hint { max-width: 36ch; }
+.file-btn { display: inline-flex; align-items: center; gap: 6px; border: 0; background: var(--blue); color: var(--blue-ink); border-radius: 9px; padding: 8px 14px; font-weight: 700; cursor: pointer; }
+.file-row { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; font-size: 14px; }
+.file-row .name { min-width: 0; overflow-wrap: anywhere; color: var(--muted); }
+.link-btn { border: 0; background: none; color: var(--accent); font-weight: 700; cursor: pointer; padding: 0; font-size: 14px; }
+
+.field { display: grid; gap: 6px; min-width: 0; }
+.field label, .field .label { font-weight: 600; font-size: 14px; }
+.field .opt { color: var(--muted); font-weight: 500; }
+.input, select.input, textarea.input { width: 100%; border: 1.5px solid var(--line); background: var(--bg); border-radius: 10px; padding: 10px 12px; font-size: 16px; }
+textarea.input { resize: vertical; min-height: 92px; }
+.input:focus { border-color: var(--cyan); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--cyan) 22%, transparent); }
+.row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 460px) { .row { grid-template-columns: minmax(0, 1fr); } }
+
+.swatches { display: flex; gap: 8px; flex-wrap: wrap; }
+.swatch { width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid var(--line); cursor: pointer; position: relative; padding: 0; }
+.swatch[aria-checked="true"] { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--accent); }
+.swatch-note { color: var(--muted); font-size: 13px; }
+.text-colors { display: flex; gap: 6px; }
+.text-colors .swatch { width: 26px; height: 26px; }
+
+.choice { display: flex; gap: 8px; flex-wrap: wrap; }
+.choice label { display: flex; align-items: center; gap: 7px; border: 1.5px solid var(--line); border-radius: 10px; padding: 8px 12px; cursor: pointer; font-weight: 600; font-size: 14px; background: var(--bg); }
+.choice input { accent-color: var(--accent); }
+.choice label:has(input:checked) { border-color: var(--accent); background: var(--surface); }
+
+.error { color: var(--bad); font-size: 14px; font-weight: 600; }
+.submit { border: 0; background: var(--accent); color: var(--accent-ink); font-weight: 400; font-size: 18px; border-radius: 14px; padding: 15px 18px; cursor: pointer; font-family: var(--font-display); letter-spacing: -0.01em; display: flex; justify-content: center; align-items: center; gap: 10px; }
+.submit:hover { filter: brightness(1.06); }
+.fineprint { color: var(--muted); font-size: 13px; text-align: center; }
+
+/* products */
+.section { padding-block: 56px; border-top: 1px solid var(--line); }
+.section-head { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+.section-head h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 400; }
+.section-head p { color: var(--muted); max-width: 52ch; }
+.products { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 880px) { .products { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .products { grid-template-columns: minmax(0, 1fr); } }
+.product { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
+.product-art { aspect-ratio: 4 / 3; background-color: var(--stage); background-image: radial-gradient(var(--dot) 1.2px, transparent 1.3px); background-size: 16px 16px; display: grid; place-items: center; }
+.product-art svg { width: 62%; height: 82%; }
+.product-body { padding: 16px; display: grid; gap: 8px; align-content: start; }
+.product-body h3 { font-size: 22px; font-weight: 400; }
+.product-body p { color: var(--muted); font-size: 15px; }
+.spec { color: var(--muted); }
+.product-body .tool-btn { justify-self: start; margin-top: 4px; background: var(--blue); color: var(--blue-ink); border-color: var(--blue); padding: 8px 14px; }
+
+/* how it works */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; counter-reset: s; }
+@media (max-width: 760px) { .steps { grid-template-columns: minmax(0, 1fr); } }
+.steps li { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px; display: grid; gap: 8px; align-content: start; }
+.steps li::before { counter-increment: s; content: counter(s); font-family: var(--font-display); font-weight: 400; font-size: 34px; line-height: 1; }
+.steps li:nth-child(1)::before { color: var(--blue); }
+.steps li:nth-child(2)::before { color: var(--accent); }
+.steps li:nth-child(3)::before { color: var(--orange); }
+.steps h3 { font-size: 21px; }
+.steps p { color: var(--muted); }
+
+.site-foot { border-top: 1px solid var(--line); background: var(--surface); }
+.site-foot .wrap { padding-block: 32px; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; color: var(--muted); font-size: 14px; }
+.site-foot img { width: 180px; height: auto; max-width: 100%; }
+.foot-info { display: grid; gap: 4px; }
+.foot-info strong { color: var(--ink); font-size: 15px; }
+
+/* gallery */
+.gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 880px) { .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.tile { position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 1; max-width: 100%; display: grid; place-items: center; text-align: center; padding: 14px; border: 1px solid var(--line); }
+.tile.wide { grid-column: span 2; aspect-ratio: auto; min-height: 100%; }
+@media (max-width: 880px) { .tile.wide { aspect-ratio: 2 / 1; } }
+.tile.t-blue { background: var(--stage); }
+.tile.t-pink { background: var(--pink-tint); }
+.tile.t-yellow { background: var(--yellow-tint); }
+.tile.t-purple { background: var(--purple-tint); }
+.tile svg { width: 58%; height: auto; }
+.tile .cap { position: absolute; left: 10px; bottom: 10px; right: 10px; text-align: left; font-size: 13px; font-weight: 700; color: var(--ink); }
+.tile .tag { position: absolute; top: 10px; left: 10px; background: var(--surface); border-radius: 999px; padding: 3px 9px; font-size: 11px; color: var(--muted); }
+.play { width: 64px; height: 64px; border-radius: 50%; background: var(--accent); display: grid; place-items: center; box-shadow: 0 8px 20px rgba(211,32,112,.3); }
+.play::after { content: ""; border-left: 20px solid var(--accent-ink); border-top: 12px solid transparent; border-bottom: 12px solid transparent; margin-left: 5px; }
+.gallery-note { margin-top: 14px; color: var(--muted); font-size: 14px; }
+
+/* press overlay */
+.overlay { position: fixed; inset: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(6px); display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); overflow-y: auto; }
+.overlay-card { background: var(--surface); border: 1px solid var(--line); border-radius: 24px; box-shadow: var(--shadow); width: min(520px, 100%); padding: 26px; display: grid; gap: 16px; }
+.press { position: relative; height: 170px; display: grid; place-items: end center; }
+.press .arm { position: absolute; top: 0; left: 50%; width: 14px; height: 40px; margin-left: -7px; background: var(--muted); border-radius: 4px; animation: arm 2.8s ease-in-out forwards; }
+.press .platen { position: absolute; top: 34px; left: 50%; width: 220px; margin-left: -110px; height: 34px; border-radius: 10px; background: linear-gradient(180deg, #8b93a7, #5b6378); box-shadow: 0 6px 18px rgba(214,18,127,.0); animation: platen 2.8s ease-in-out forwards; }
+.press .platen::after { content: "400°F"; position: absolute; right: 12px; top: 7px; font-family: var(--font-body); font-weight: 800; font-size: 12px; color: #fff; opacity: .9; }
+.press .bed { width: 240px; height: 22px; border-radius: 6px; background: var(--ink); opacity: .85; }
+.press .blank { position: absolute; bottom: 22px; left: 50%; width: 200px; margin-left: -100px; height: 42px; border-radius: 6px 6px 0 0; background: #fff; border: 1px solid var(--line); overflow: hidden; }
+.press .ink { position: absolute; inset: 6px 30px; border-radius: 4px; background: var(--gradient); opacity: 0; animation: ink 2.8s ease-in-out forwards; }
+@keyframes platen { 0% { transform: translateY(0); } 30%, 72% { transform: translateY(58px); box-shadow: 0 6px 22px rgba(211,32,112,.55); } 100% { transform: translateY(0); } }
+@keyframes arm { 0% { height: 40px; } 30%, 72% { height: 98px; } 100% { height: 40px; } }
+@keyframes ink { 0%, 34% { opacity: 0; } 70%, 100% { opacity: 1; } }
+.press-msg { text-align: center; font-family: var(--font-display); font-weight: 400; font-size: 22px; }
+.bar { height: 6px; border-radius: 99px; background: var(--bg); overflow: hidden; }
+.bar span { display: block; height: 100%; width: 0; background: var(--gradient); animation: bar 2.8s linear forwards; }
+@keyframes bar { to { width: 100%; } }
+
+.done { display: grid; gap: 14px; }
+.done h2 { font-size: 28px; font-weight: 400; }
+.done-top { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 14px; align-items: center; }
+.done-thumb { width: 120px; aspect-ratio: 1; border-radius: 14px; overflow: hidden; position: relative; }
+.done-thumb .stage { width: 400px; transform: scale(.3); transform-origin: 0 0; border-radius: 0; }
+.summary { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 14px; font-size: 15px; margin: 0; }
+.summary dt { color: var(--muted); }
+.summary dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
+.req-id { color: var(--accent); }
+.note-box { background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; font-size: 14px; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .press .arm, .press .platen, .press .ink, .bar span { animation-duration: .01s; }
+  .drop { transition: none; }
+}
+
+/* home link + language switch */
+.home-link { font-weight: 800; }
+.lang { position: relative; display: inline-grid; grid-template-columns: 1fr 1fr; padding: 3px; border-radius: 999px; background: var(--bg); border: 1px solid var(--line); isolation: isolate; }
+.lang button { position: relative; z-index: 1; font: inherit; font-weight: 900; font-size: 12.5px; letter-spacing: .08em; color: var(--muted); background: none; border: 0; padding: 5px 10px; border-radius: 999px; cursor: pointer; transition: color .3s; min-width: 38px; }
+.lang button[aria-pressed="true"] { color: var(--surface); }
+.lang-pill { position: absolute; z-index: 0; top: 3px; bottom: 3px; left: 3px; width: calc(50% - 3px); border-radius: 999px; background: var(--ink); transition: transform .45s cubic-bezier(.16, 1, .3, 1); }
+.lang[data-active="es"] .lang-pill { transform: translateX(100%); }
+@media (prefers-reduced-motion: reduce) { .lang-pill { transition: none; } }
+.nav { align-items: center; }
+@media (max-width: 640px) { .nav a.navx { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="inkbar" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="#design"><img src="icon.webp" alt="" width="40" height="40">Creative Sublimation</a>
+    <nav class="nav" aria-label="Main">
+      <a class="home-link" href="./" id="homeLink" data-i18n="home">← Home</a>
+      <a class="navx" href="#products" data-i18n="navProducts">Products</a>
+      <a class="navx" href="#gallery" data-i18n="navWork">Our work</a>
+      <a class="navx" href="#how" data-i18n="navHow">How it works</a>
+      <div class="lang" role="group" aria-label="Language / Idioma">
+        <span class="lang-pill" aria-hidden="true"></span>
+        <button type="button" data-lang="en" aria-pressed="true" lang="en" title="English">EN</button>
+        <button type="button" data-lang="es" aria-pressed="false" lang="es" title="Español">ES</button>
+      </div>
+      <a class="cta" href="#design" data-i18n="designNow">Design now</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="design">
+    <div class="wrap">
+      <div class="intro">
+        <div class="intro-text">
+          <span class="mono eyebrow" data-i18n="eyebrow">Custom sublimation printing</span>
+          <h1 data-i18n-html="heroTitle">Your idea, <em>pressed onto</em> anything.</h1>
+          <p data-i18n="heroText">Pick a product, drop in a photo or describe what you want, and see it come together. We design the final version, send you a quote, and press it.</p>
+          <div class="hero-actions">
+            <span class="pill"><i style="background: var(--blue)"></i><b data-i18n="pill1" style="font-weight:inherit">Church &amp; event orders</b></span>
+            <span class="pill"><i style="background: var(--accent)"></i><b data-i18n="pill2" style="font-weight:inherit">Pets &amp; family gifts</b></span>
+            <span class="pill"><i style="background: var(--yellow)"></i><b data-i18n="pill3" style="font-weight:inherit">One item or one hundred</b></span>
+          </div>
+        </div>
+        <img class="hero-logo" src="logo.webp" alt="Creative Sublimation logo" data-i18n-alt="logoAlt" width="900" height="583">
+      </div>
+
+      <div class="designer">
+        <div class="stage-col">
+          <div class="stage guides" id="stage">
+            <svg id="productSvg" viewBox="0 0 400 400" aria-hidden="true"></svg>
+            <span class="print-tag mono" id="printTag"></span>
+            <div class="print-area" id="printArea" tabindex="0" aria-label="Design preview. Drag or use arrow keys to move your image." data-i18n-aria="areaAria">
+              <img id="designImg" alt="Your design on the product" data-i18n-alt="imgAlt" hidden>
+              <div class="idea-note" id="ideaNote" hidden></div>
+              <div class="empty-note" id="emptyNote" hidden><span data-i18n="dropHere">Drop a photo here</span><small data-i18n="orDescribe">or describe your idea</small></div>
+              <div class="overlay-text" id="overlayText"></div>
+              <div class="shade" id="shade" hidden></div>
+            </div>
+            <span class="stage-chip mono" id="sampleChip" data-i18n-html="sampleChip"><b>Sample design</b> · upload yours</span>
+          </div>
+
+          <div class="tools">
+            <label class="tool" for="scale"><span data-i18n="toolSize">Size</span> <input type="range" id="scale" min="40" max="220" value="100"></label>
+            <label class="tool" for="rotate"><span data-i18n="toolRotate">Rotate</span> <input type="range" id="rotate" min="-45" max="45" value="0"></label>
+            <button type="button" class="tool-btn" id="resetBtn" data-i18n="center">Center</button>
+            <label class="tool" for="guides"><input type="checkbox" id="guides" checked> <span data-i18n="printArea">Print area</span></label>
+          </div>
+          <div class="quality" id="quality" aria-live="polite"><span class="dot"></span><div><strong></strong><span></span></div></div>
+        </div>
+
+        <form class="panel" id="orderForm" novalidate>
+          <fieldset class="step">
+            <legend class="step-head"><span class="step-num">1</span><h2 data-i18n="step1">Pick your item</h2></legend>
+            <div class="picker" id="picker" role="group" aria-label="Product" data-i18n-aria="productAria"></div>
+          </fieldset>
+
+          <fieldset class="step">
+            <legend class="step-head"><span class="step-num">2</span><h2 data-i18n="step2">Add your design</h2></legend>
+            <div class="tabs" role="tablist" aria-label="How do you want to add your design?" data-i18n-aria="tabsAria">
+              <button type="button" class="tab" role="tab" id="tabUpload" aria-selected="true" aria-controls="panelUpload" data-i18n="tabUpload">Upload an image</button>
+              <button type="button" class="tab" role="tab" id="tabIdea" aria-selected="false" aria-controls="panelIdea" data-i18n="tabIdea">Describe an idea</button>
+            </div>
+
+            <div id="panelUpload" role="tabpanel" aria-labelledby="tabUpload" class="field">
+              <div class="drop" id="drop">
+                <strong data-i18n="dropTitle">Drag &amp; drop a photo or logo</strong>
+                <span class="hint" data-i18n="dropHint">JPG or PNG. Bigger photos print sharper. A transparent PNG works best for logos.</span>
+                <label class="file-btn" for="fileInput" data-i18n="chooseFile">Choose a file</label>
+                <input type="file" id="fileInput" accept="image/*" hidden>
+              </div>
+              <div class="file-row" id="fileRow" hidden>
+                <span class="name" id="fileName"></span>
+                <button type="button" class="link-btn" id="removeImg" data-i18n="removeImg">Remove image</button>
+              </div>
+            </div>
+
+            <div id="panelIdea" role="tabpanel" aria-labelledby="tabIdea" class="field" hidden>
+              <label for="idea" data-i18n="ideaLabel">What should we make?</label>
+              <textarea class="input" id="idea" data-i18n-ph="ideaPh" placeholder="Example: Church fall festival shirts. Three guys grilling under a big harvest sun, with &quot;Grace Fellowship Fall Fest&quot; across the top."></textarea>
+              <span class="hint" data-i18n="ideaHint">We'll design it for you and send a preview before anything is printed.</span>
+            </div>
+
+            <div class="field">
+              <label for="addText" data-i18n-html="addTextLabel">Add text <span class="opt">(optional)</span></label>
+              <div class="row" style="grid-template-columns: minmax(0,1fr) auto; align-items: center;">
+                <input class="input" id="addText" type="text" maxlength="40" placeholder="A name, date, or event title" data-i18n-ph="addTextPh">
+                <div class="text-colors" role="radiogroup" aria-label="Text color" data-i18n-aria="textColorAria" id="textColors"></div>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="step">
+            <legend class="step-head"><span class="step-num">3</span><h2 data-i18n="step3">Details</h2></legend>
+            <div class="field">
+              <span class="label" id="colorLabel">Color</span>
+              <div class="swatches" role="radiogroup" aria-labelledby="colorLabel" id="swatches"></div>
+              <span class="swatch-note" id="colorNote"></span>
+            </div>
+            <div class="row">
+              <div class="field">
+                <label for="size" data-i18n="sizeLabel">Size</label>
+                <select class="input" id="size"></select>
+              </div>
+              <div class="field">
+                <label for="qty" data-i18n="qtyLabel">Quantity</label>
+                <input class="input" id="qty" type="number" min="1" max="500" value="1" inputmode="numeric">
+              </div>
+            </div>
+            <div class="row">
+              <div class="field">
+                <label for="deadline" data-i18n-html="deadlineLabel">Need it by <span class="opt">(optional)</span></label>
+                <input class="input" id="deadline" type="date">
+              </div>
+              <div class="field">
+                <span class="label" id="getLabel" data-i18n="getLabel">How to get it</span>
+                <div class="choice" role="radiogroup" aria-labelledby="getLabel">
+                  <label><input type="radio" name="delivery" id="dPickup" value="Local pickup" checked> <span data-i18n="pickup">Pickup</span></label>
+                  <label><input type="radio" name="delivery" id="dShip" value="Shipping"> <span data-i18n="ship">Ship it</span></label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="step">
+            <legend class="step-head"><span class="step-num">4</span><h2 data-i18n="step4">Your info</h2></legend>
+            <div class="row">
+              <div class="field">
+                <label for="custName" data-i18n="nameLabel">Name</label>
+                <input class="input" id="custName" type="text" autocomplete="name">
+              </div>
+              <div class="field">
+                <label for="contact" data-i18n="contactLabel">Phone or email</label>
+                <input class="input" id="contact" type="text" autocomplete="email">
+              </div>
+            </div>
+            <div class="field">
+              <label for="notes" data-i18n-html="notesLabel">Anything else? <span class="opt">(optional)</span></label>
+              <input class="input" id="notes" type="text" placeholder="Sizes for a group order, colors you like, etc." data-i18n-ph="notesPh">
+            </div>
+          </fieldset>
+
+          <p class="error" id="formError" role="alert" hidden></p>
+          <button type="submit" class="submit" id="submitBtn" data-i18n="submit">Send my design request</button>
+          <p class="fineprint" data-i18n="fineprint">No payment yet. You'll get a quote and a secure payment link once we've reviewed your design.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="products">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 data-i18n="productsTitle">What we press</h2>
+        <p data-i18n="productsText">Every item is made to order. Pick one to start designing.</p>
+      </div>
+      <div class="products" id="productGrid"></div>
+    </div>
+  </section>
+
+  <section class="section" id="gallery">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 data-i18n="workTitle">Our work</h2>
+        <p data-i18n="workText">Real orders, fresh off the press, and a look inside the shop.</p>
+      </div>
+      <div class="gallery">
+        <div class="tile t-blue wide"><span class="tag mono" data-i18n="tagVideo">Video</span><span class="play" aria-hidden="true"></span><span class="cap" data-i18n="cap1">Watch a tumbler go into the press</span></div>
+        <div class="tile t-pink"><span class="tag mono" data-i18n="tagPhoto">Photo</span><svg viewBox="0 0 400 400" aria-hidden="true" data-art="shirt"></svg><span class="cap" data-i18n="cap2">Church fall festival shirts</span></div>
+        <div class="tile t-yellow"><span class="tag mono" data-i18n="tagPhoto">Photo</span><svg viewBox="0 0 400 400" aria-hidden="true" data-art="mug"></svg><span class="cap" data-i18n="cap3">Pet portrait mug</span></div>
+        <div class="tile t-purple"><span class="tag mono" data-i18n="tagPhoto">Photo</span><svg viewBox="0 0 400 400" aria-hidden="true" data-art="tumbler"></svg><span class="cap" data-i18n="cap4">Teacher gift tumbler</span></div>
+        <div class="tile t-blue"><span class="tag mono" data-i18n="tagPhoto">Photo</span><svg viewBox="0 0 400 400" aria-hidden="true" data-art="hoodie"></svg><span class="cap" data-i18n="cap5">Family reunion hoodies</span></div>
+        <div class="tile t-pink wide"><span class="tag mono" data-i18n="tagVideo">Video</span><span class="play" aria-hidden="true"></span><span class="cap" data-i18n="cap6">Meet the shop: our printer and heat presses</span></div>
+      </div>
+      <p class="gallery-note" data-i18n="galleryNote">Placeholder tiles. These get swapped for real product photos and machine videos.</p>
+    </div>
+  </section>
+
+  <section class="section" id="how">
+    <div class="wrap">
+      <div class="section-head"><h2 data-i18n="navHow">How it works</h2></div>
+      <ol class="steps">
+        <li><h3 data-i18n="how1">Design it</h3><p data-i18n="how1t">Upload a photo, logo or artwork, or just tell us your idea. Church events, teams, family reunions, gifts, pets.</p></li>
+        <li><h3 data-i18n="how2">Get your quote</h3><p data-i18n="how2t">We review your design, finish the artwork, and text or email you a price with a secure payment link.</p></li>
+        <li><h3 data-i18n="how3">We press it</h3><p data-i18n="how3t">Your design is heat-pressed into the item, so it won't crack or peel. Pick it up locally or have it shipped.</p></li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <img src="logo.webp" alt="Creative Sublimation" width="900" height="583" loading="lazy">
+    <div class="foot-info">
+      <strong>Creative Sublimation</strong>
+      <span data-i18n="footLine">Custom sublimation printing · [CITY], MN</span>
+      <span>[PHONE] · [EMAIL]</span>
+      <span data-i18n="footFb">Find us on Facebook Marketplace</span>
+      <span>© 2026 Creative Sublimation</span>
+    </div>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay" hidden>
+  <div class="overlay-card" role="dialog" aria-modal="true" aria-labelledby="pressMsg">
+    <div id="pressing">
+      <div class="press" aria-hidden="true">
+        <div class="arm"></div>
+        <div class="platen"></div>
+        <div class="blank"><div class="ink"></div></div>
+        <div class="bed"></div>
+      </div>
+      <p class="press-msg" id="pressMsg" aria-live="polite">Heating the press…</p>
+      <div class="bar" aria-hidden="true"><span></span></div>
+    </div>
+    <div class="done" id="done" hidden>
+      <span class="mono req-id" id="reqId"></span>
+      <h2 data-i18n="received">Request received!</h2>
+      <div class="done-top">
+        <div class="done-thumb" id="doneThumb"></div>
+        <dl class="summary" id="summary"></dl>
+      </div>
+      <p class="note-box" data-i18n-html="noteBox"><strong>Preview site:</strong> nothing was sent. On the live site, this request (with your image) goes straight to Creative Sublimation, and you'll hear back with a quote.</p>
+      <button type="button" class="submit" id="againBtn" data-i18n="again">Start another design</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const STROKE = 'stroke="#1d2235" stroke-opacity=".45" stroke-width="3" stroke-linejoin="round"';
+  const APPAREL_COLORS = [
+    { n: 'White', c: '#ffffff' }, { n: 'Ash', c: '#e3e5e8' }, { n: 'Light pink', c: '#f7d5df' },
+    { n: 'Light blue', c: '#cfe2f3' }, { n: 'Sand', c: '#ebe0cb' }
+  ];
+  const APPAREL_SIZES = ['Youth S', 'Youth M', 'Youth L', 'Adult S', 'Adult M', 'Adult L', 'Adult XL', 'Adult 2XL', 'Adult 3XL'];
+  const P = {
+    shirt: {
+      name: 'T-shirt', area: [145, 100, 110, 140], visIn: 10, tag: 'Print area · 10 × 12 in',
+      blurb: 'Soft polyester tees for events, teams and family shirts.', spec: 'Youth S – Adult 3XL',
+      colors: APPAREL_COLORS, colorLabel: 'Shirt color', sizes: APPAREL_SIZES,
+      note: 'Sublimation prints brightest on white and light colors.', curved: false,
+      svg: c => `<path d="M130 50 L170 40 Q200 66 230 40 L270 50 L345 100 L315 152 L285 136 L285 362 L115 362 L115 136 L85 152 L55 100 Z" fill="${c}" ${STROKE}/><path d="M170 40 Q200 66 230 40" fill="none" ${STROKE}/>`
+    },
+    hoodie: {
+      name: 'Hoodie', area: [150, 125, 100, 110], visIn: 10, tag: 'Print area · 10 × 10 in',
+      blurb: 'Cozy pullover hoodies with a front print.', spec: 'Youth S – Adult 3XL',
+      colors: APPAREL_COLORS, colorLabel: 'Hoodie color', sizes: APPAREL_SIZES,
+      note: 'Sublimation prints brightest on white and light colors.', curved: false,
+      svg: c => `<path d="M155 70 Q160 18 200 14 Q240 18 245 70 Z" fill="${c}" ${STROKE}/><path d="M155 62 L120 75 L55 130 L48 330 L88 336 L103 175 L108 360 L292 360 L297 175 L312 336 L352 330 L345 130 L280 75 L245 62 Q200 90 155 62 Z" fill="${c}" ${STROKE}/><path d="M168 66 Q200 30 232 66 Q200 84 168 66 Z" fill="#1d2235" fill-opacity=".12" ${STROKE}/><path d="M188 80 L186 116 M212 80 L214 116" ${STROKE} fill="none"/><path d="M145 270 L255 270 L272 345 L128 345 Z" fill="none" ${STROKE}/>`
+    },
+    mug: {
+      name: 'Mug', area: [118, 138, 144, 152], visIn: 4, tag: 'Front shown · full wrap available',
+      blurb: 'Glossy ceramic mugs. Dishwasher safe.', spec: '11 oz · 15 oz',
+      colors: [{ n: 'All white', c: '#ffffff' }, { n: 'Black handle', c: '#262a36' }, { n: 'Pink handle', c: '#f08bb6' }, { n: 'Blue handle', c: '#4f86d9' }, { n: 'Red handle', c: '#d8433a' }],
+      colorLabel: 'Handle & inside color', sizes: ['11 oz', '15 oz'], note: 'The mug body is always white so your design stays bright.', curved: true,
+      svg: c => `<path d="M275 155 Q342 150 342 210 Q342 272 275 268" fill="none" stroke="#1d2235" stroke-opacity=".45" stroke-width="30" stroke-linecap="round"/><path d="M275 155 Q342 150 342 210 Q342 272 275 268" fill="none" stroke="${c}" stroke-width="23" stroke-linecap="round"/><rect x="100" y="110" width="180" height="200" rx="14" fill="#ffffff" ${STROKE}/><ellipse cx="190" cy="112" rx="88" ry="13" fill="${c}" ${STROKE}/>`
+    },
+    tumbler: {
+      name: 'Tumbler', area: [160, 100, 80, 230], visIn: 4.5, tag: 'Front shown · full wrap',
+      blurb: 'Stainless skinny tumblers. Keeps drinks hot or cold.', spec: '20 oz · 30 oz',
+      colors: [{ n: 'Black lid', c: '#262a36' }, { n: 'White lid', c: '#f2f3f5' }, { n: 'Clear lid', c: '#cfe7ef' }],
+      colorLabel: 'Lid color', sizes: ['20 oz skinny', '30 oz skinny'], note: 'Tumblers are white so the full wrap prints true to color.', curved: true,
+      svg: c => `<path d="M146 78 L254 78 L242 352 Q200 364 158 352 Z" fill="#ffffff" ${STROKE}/><rect x="138" y="48" width="124" height="32" rx="9" fill="${c}" ${STROKE}/><rect x="190" y="18" width="12" height="34" rx="4" fill="${c}" ${STROKE}/>`
+    },
+    bottle: {
+      name: 'Water bottle', area: [148, 165, 104, 170], visIn: 4, tag: 'Front shown · full wrap',
+      blurb: 'Reusable bottles for sports, camp and school.', spec: '17 oz · 20 oz',
+      colors: [{ n: 'Black cap', c: '#262a36' }, { n: 'Silver cap', c: '#c7ccd4' }, { n: 'White cap', c: '#f2f3f5' }],
+      colorLabel: 'Cap color', sizes: ['17 oz', '20 oz'], note: 'Bottles are white so your design prints true to color.', curved: true,
+      svg: c => `<path d="M175 70 L225 70 L225 92 Q265 110 265 150 L265 350 Q265 366 250 366 L150 366 Q135 366 135 350 L135 150 Q135 110 175 92 Z" fill="#ffffff" ${STROKE}/><rect x="168" y="28" width="64" height="44" rx="9" fill="${c}" ${STROKE}/>`
+    },
+    pouch: {
+      name: 'Pencil pouch', area: [75, 170, 250, 105], visIn: 8, tag: 'Print area · 8 × 4 in',
+      blurb: 'Zippered pouches for school supplies or makeup.', spec: 'One size · 8.5 × 5 in',
+      colors: [{ n: 'White', c: '#ffffff' }, { n: 'Linen', c: '#ece4d3' }],
+      colorLabel: 'Pouch color', sizes: ['One size'], note: 'Ask about printing both sides.', curved: false,
+      svg: c => `<rect x="50" y="125" width="300" height="170" rx="26" fill="${c}" ${STROKE}/><line x1="72" y1="150" x2="314" y2="150" stroke="#1d2235" stroke-opacity=".5" stroke-width="5" stroke-dasharray="3 3"/><rect x="314" y="140" width="22" height="36" rx="6" fill="#8d95a8" ${STROKE}/>`
+    }
+  };
+  const ORDER = ['shirt', 'hoodie', 'mug', 'tumbler', 'bottle', 'pouch'];
+  const TEXT_COLORS = [{ n: 'Black', c: '#120D30' }, { n: 'White', c: '#ffffff' }, { n: 'Hot pink', c: '#D32070' }, { n: 'Splash blue', c: '#194CC6' }];
+
+  /* ---------- English / Español ---------- */
+  const I18N = {
+    en: {
+      home: '← Home', navProducts: 'Products', navWork: 'Our work', navHow: 'How it works', designNow: 'Design now',
+      eyebrow: 'Custom sublimation printing',
+      heroTitle: 'Your idea, <em>pressed onto</em> anything.',
+      heroText: 'Pick a product, drop in a photo or describe what you want, and see it come together. We design the final version, send you a quote, and press it.',
+      pill1: 'Church & event orders', pill2: 'Pets & family gifts', pill3: 'One item or one hundred',
+      logoAlt: 'Creative Sublimation logo', areaAria: 'Design preview. Drag or use arrow keys to move your image.', imgAlt: 'Your design on the product',
+      dropHere: 'Drop a photo here', orDescribe: 'or describe your idea', sampleChip: '<b>Sample design</b> · upload yours',
+      toolSize: 'Size', toolRotate: 'Rotate', center: 'Center', printArea: 'Print area',
+      step1: 'Pick your item', productAria: 'Product', step2: 'Add your design', tabsAria: 'How do you want to add your design?',
+      tabUpload: 'Upload an image', tabIdea: 'Describe an idea', dropTitle: 'Drag & drop a photo or logo',
+      dropHint: 'JPG or PNG. Bigger photos print sharper. A transparent PNG works best for logos.',
+      chooseFile: 'Choose a file', removeImg: 'Remove image', ideaLabel: 'What should we make?',
+      ideaPh: 'Example: Church fall festival shirts. Three guys grilling under a big harvest sun, with "Grace Fellowship Fall Fest" across the top.',
+      ideaHint: "We'll design it for you and send a preview before anything is printed.",
+      addTextLabel: 'Add text <span class="opt">(optional)</span>', addTextPh: 'A name, date, or event title', textColorAria: 'Text color',
+      step3: 'Details', sizeLabel: 'Size', qtyLabel: 'Quantity', deadlineLabel: 'Need it by <span class="opt">(optional)</span>',
+      getLabel: 'How to get it', pickup: 'Pickup', ship: 'Ship it',
+      step4: 'Your info', nameLabel: 'Name', contactLabel: 'Phone or email', notesLabel: 'Anything else? <span class="opt">(optional)</span>',
+      notesPh: 'Sizes for a group order, colors you like, etc.', submit: 'Send my design request',
+      fineprint: "No payment yet. You'll get a quote and a secure payment link once we've reviewed your design.",
+      productsTitle: 'What we press', productsText: 'Every item is made to order. Pick one to start designing.',
+      workTitle: 'Our work', workText: 'Real orders, fresh off the press, and a look inside the shop.',
+      tagVideo: 'Video', tagPhoto: 'Photo',
+      cap1: 'Watch a tumbler go into the press', cap2: 'Church fall festival shirts', cap3: 'Pet portrait mug',
+      cap4: 'Teacher gift tumbler', cap5: 'Family reunion hoodies', cap6: 'Meet the shop: our printer and heat presses',
+      galleryNote: 'Placeholder tiles. These get swapped for real product photos and machine videos.',
+      how1: 'Design it', how1t: 'Upload a photo, logo or artwork, or just tell us your idea. Church events, teams, family reunions, gifts, pets.',
+      how2: 'Get your quote', how2t: 'We review your design, finish the artwork, and text or email you a price with a secure payment link.',
+      how3: 'We press it', how3t: "Your design is heat-pressed into the item, so it won't crack or peel. Pick it up locally or have it shipped.",
+      footLine: 'Custom sublimation printing · [CITY], MN', footFb: 'Find us on Facebook Marketplace',
+      received: 'Request received!',
+      noteBox: "<strong>Preview site:</strong> nothing was sent. On the live site, this request (with your image) goes straight to Creative Sublimation, and you'll hear back with a quote.",
+      again: 'Start another design',
+      designThis: 'Design this', textWord: 'text', weDesign: 'We’ll design this for you',
+      qIdea: 'We’ll create the artwork', qIdeaSub: 'You’ll see a proof before anything is printed.',
+      qNone: 'No image yet', qNoneSub: 'Upload a photo or logo, or describe your idea.',
+      qGood: 'Sharp. Great for printing.', qOk: 'Good at this size.', qBad: 'Low resolution. It may print blurry.',
+      qLine: (w, h, d) => `${w} × ${h} px · about ${d} pixels per inch at this size`, qTip: '. Try a larger photo or make it smaller.',
+      errNotImage: 'That file isn’t an image. Try a JPG or PNG.',
+      errDesign: 'Add your design: upload your own image, or describe your idea in step 2.',
+      errName: 'Add your name so we know who the order is for.',
+      errContact: 'Add a phone number or email so we can send your quote.',
+      press: ['Heating the press…', 'Lining up your design…', 'Pressing your request…'],
+      sItem: 'Item', sColor: 'Color', sQty: 'Quantity', sDesign: 'Design', sUploaded: 'Uploaded image', sFromIdea: 'Custom design from your idea',
+      sText: 'Text', sNeedBy: 'Need by', sDelivery: 'Delivery', sPickup: 'Local pickup', sShip: 'Shipping', sContact: 'Contact',
+      locale: 'en-US', textColors: ['Black', 'White', 'Hot pink', 'Splash blue']
+    },
+    es: {
+      home: '← Inicio', navProducts: 'Productos', navWork: 'Nuestro trabajo', navHow: 'Cómo funciona', designNow: 'Diseña ahora',
+      eyebrow: 'Impresión por sublimación personalizada',
+      heroTitle: 'Tu idea, <em>estampada en</em> lo que quieras.',
+      heroText: 'Elige un producto, sube una foto o describe lo que quieres y mira cómo queda. Nosotros hacemos el diseño final, te enviamos una cotización y lo estampamos.',
+      pill1: 'Pedidos para iglesias y eventos', pill2: 'Mascotas y regalos familiares', pill3: 'Una pieza o cien',
+      logoAlt: 'Logotipo de Creative Sublimation', areaAria: 'Vista previa del diseño. Arrastra o usa las flechas para mover tu imagen.', imgAlt: 'Tu diseño en el producto',
+      dropHere: 'Suelta una foto aquí', orDescribe: 'o describe tu idea', sampleChip: '<b>Diseño de muestra</b> · sube el tuyo',
+      toolSize: 'Tamaño', toolRotate: 'Girar', center: 'Centrar', printArea: 'Área de impresión',
+      step1: 'Elige tu producto', productAria: 'Producto', step2: 'Agrega tu diseño', tabsAria: '¿Cómo quieres agregar tu diseño?',
+      tabUpload: 'Subir una imagen', tabIdea: 'Describir una idea', dropTitle: 'Arrastra y suelta una foto o logotipo',
+      dropHint: 'JPG o PNG. Las fotos más grandes se imprimen más nítidas. Para logotipos, lo mejor es un PNG transparente.',
+      chooseFile: 'Elegir archivo', removeImg: 'Quitar imagen', ideaLabel: '¿Qué quieres que hagamos?',
+      ideaPh: 'Ejemplo: Camisetas para el festival de otoño de la iglesia. Tres hombres asando carne bajo un gran sol, con "Grace Fellowship Fall Fest" arriba.',
+      ideaHint: 'Lo diseñamos por ti y te enviamos una vista previa antes de imprimir.',
+      addTextLabel: 'Agregar texto <span class="opt">(opcional)</span>', addTextPh: 'Un nombre, una fecha o el título del evento', textColorAria: 'Color del texto',
+      step3: 'Detalles', sizeLabel: 'Talla', qtyLabel: 'Cantidad', deadlineLabel: '¿Para cuándo lo necesitas? <span class="opt">(opcional)</span>',
+      getLabel: 'Cómo recibirlo', pickup: 'Recoger', ship: 'Envío',
+      step4: 'Tus datos', nameLabel: 'Nombre', contactLabel: 'Teléfono o correo', notesLabel: '¿Algo más? <span class="opt">(opcional)</span>',
+      notesPh: 'Tallas para un pedido de grupo, colores que te gustan, etc.', submit: 'Enviar mi solicitud de diseño',
+      fineprint: 'Todavía no pagas nada. Recibirás una cotización y un enlace de pago seguro cuando revisemos tu diseño.',
+      productsTitle: 'Lo que estampamos', productsText: 'Cada pieza se hace por encargo. Elige una para empezar a diseñar.',
+      workTitle: 'Nuestro trabajo', workText: 'Pedidos reales, recién salidos de la prensa, y un vistazo al taller.',
+      tagVideo: 'Video', tagPhoto: 'Foto',
+      cap1: 'Mira cómo un termo entra a la prensa', cap2: 'Camisetas para el festival de otoño de la iglesia', cap3: 'Taza con retrato de mascota',
+      cap4: 'Termo de regalo para maestra', cap5: 'Sudaderas para reunión familiar', cap6: 'Conoce el taller: nuestra impresora y prensas de calor',
+      galleryNote: 'Imágenes de muestra. Se reemplazarán con fotos reales de productos y videos de las máquinas.',
+      how1: 'Diséñalo', how1t: 'Sube una foto, logotipo o dibujo, o simplemente cuéntanos tu idea. Eventos de iglesia, equipos, reuniones familiares, regalos, mascotas.',
+      how2: 'Recibe tu cotización', how2t: 'Revisamos tu diseño, terminamos el arte y te enviamos el precio por mensaje o correo con un enlace de pago seguro.',
+      how3: 'Lo estampamos', how3t: 'Tu diseño se estampa con calor dentro del material, así que no se agrieta ni se despega. Recógelo en persona o pide que te lo enviemos.',
+      footLine: 'Impresión por sublimación personalizada · [CITY], MN', footFb: 'Encuéntranos en Facebook Marketplace',
+      received: '¡Solicitud recibida!',
+      noteBox: '<strong>Sitio de prueba:</strong> no se envió nada. En el sitio real, esta solicitud (con tu imagen) llega directo a Creative Sublimation y te responderemos con una cotización.',
+      again: 'Empezar otro diseño',
+      designThis: 'Diseñar este', textWord: 'texto', weDesign: 'Nosotros lo diseñamos por ti',
+      qIdea: 'Nosotros creamos el diseño', qIdeaSub: 'Verás una prueba antes de imprimir.',
+      qNone: 'Todavía no hay imagen', qNoneSub: 'Sube una foto o logotipo, o describe tu idea.',
+      qGood: 'Nítida. Perfecta para imprimir.', qOk: 'Buena a este tamaño.', qBad: 'Baja resolución. Podría verse borrosa.',
+      qLine: (w, h, d) => `${w} × ${h} px · unos ${d} píxeles por pulgada a este tamaño`, qTip: '. Prueba con una foto más grande o hazla más pequeña.',
+      errNotImage: 'Ese archivo no es una imagen. Prueba con un JPG o PNG.',
+      errDesign: 'Agrega tu diseño: sube tu propia imagen o describe tu idea en el paso 2.',
+      errName: 'Agrega tu nombre para saber de quién es el pedido.',
+      errContact: 'Agrega un teléfono o correo para enviarte la cotización.',
+      press: ['Calentando la prensa…', 'Alineando tu diseño…', 'Estampando tu solicitud…'],
+      sItem: 'Producto', sColor: 'Color', sQty: 'Cantidad', sDesign: 'Diseño', sUploaded: 'Imagen subida', sFromIdea: 'Diseño personalizado a partir de tu idea',
+      sText: 'Texto', sNeedBy: 'Para el', sDelivery: 'Entrega', sPickup: 'Recoger en persona', sShip: 'Envío', sContact: 'Contacto',
+      locale: 'es-MX', textColors: ['Negro', 'Blanco', 'Rosa intenso', 'Azul']
+    }
+  };
+  const APPAREL_ES = { colors: ['Blanco', 'Gris claro', 'Rosa claro', 'Azul claro', 'Arena'],
+    sizes: ['Juvenil S', 'Juvenil M', 'Juvenil L', 'Adulto S', 'Adulto M', 'Adulto L', 'Adulto XL', 'Adulto 2XL', 'Adulto 3XL'] };
+  const PES = {
+    shirt: Object.assign({ name: 'Camiseta', tag: 'Área de impresión · 10 × 12 in', blurb: 'Camisetas suaves de poliéster para eventos, equipos y familias.', spec: 'Juvenil S – Adulto 3XL', colorLabel: 'Color de la camiseta', note: 'La sublimación se ve más brillante en colores blancos y claros.' }, APPAREL_ES),
+    hoodie: Object.assign({ name: 'Sudadera', tag: 'Área de impresión · 10 × 10 in', blurb: 'Sudaderas cómodas con estampado al frente.', spec: 'Juvenil S – Adulto 3XL', colorLabel: 'Color de la sudadera', note: 'La sublimación se ve más brillante en colores blancos y claros.' }, APPAREL_ES),
+    mug: { name: 'Taza', tag: 'Se muestra el frente · también a todo alrededor', blurb: 'Tazas de cerámica brillante. Aptas para lavavajillas.', spec: '11 oz · 15 oz', colorLabel: 'Color del asa y el interior', note: 'El cuerpo de la taza siempre es blanco para que tu diseño se vea brillante.', colors: ['Toda blanca', 'Asa negra', 'Asa rosa', 'Asa azul', 'Asa roja'], sizes: ['11 oz', '15 oz'] },
+    tumbler: { name: 'Termo', tag: 'Se muestra el frente · diseño envolvente', blurb: 'Termos delgados de acero inoxidable. Mantienen tu bebida fría o caliente.', spec: '20 oz · 30 oz', colorLabel: 'Color de la tapa', note: 'Los termos son blancos para que el diseño envolvente salga con colores fieles.', colors: ['Tapa negra', 'Tapa blanca', 'Tapa transparente'], sizes: ['20 oz delgado', '30 oz delgado'] },
+    bottle: { name: 'Botella de agua', tag: 'Se muestra el frente · diseño envolvente', blurb: 'Botellas reutilizables para deportes, campamentos y la escuela.', spec: '17 oz · 20 oz', colorLabel: 'Color de la tapa', note: 'Las botellas son blancas para que tu diseño salga con colores fieles.', colors: ['Tapa negra', 'Tapa plateada', 'Tapa blanca'], sizes: ['17 oz', '20 oz'] },
+    pouch: { name: 'Estuche', tag: 'Área de impresión · 8 × 4 in', blurb: 'Estuches con cierre para útiles escolares o maquillaje.', spec: 'Talla única · 8.5 × 5 in', colorLabel: 'Color del estuche', note: 'Pregunta por la impresión en ambos lados.', colors: ['Blanco', 'Lino'], sizes: ['Talla única'] }
+  };
+  let LANG = 'en';
+  const L = k => I18N[LANG][k];
+  function PL(key) {
+    const p = P[key];
+    if (LANG !== 'es') return p;
+    const e = PES[key];
+    return Object.assign({}, p, e, { colors: p.colors.map((c, i) => ({ n: e.colors[i], c: c.c })), sizes: e.sizes });
+  }
+
+  const state = { product: 'shirt', color: 0, sizeIdx: 4, img: null, imgW: 0, imgH: 0, sample: true, fileName: '', x: 0, y: 0, scale: 1, rot: 0, mode: 'upload', textColor: 0 };
+  const $ = id => document.getElementById(id);
+  const stage = $('stage'), svg = $('productSvg'), area = $('printArea'), img = $('designImg');
+
+  /* ---------- builders ---------- */
+  function buildPicker() {
+    const picker = $('picker');
+    picker.innerHTML = '';
+    ORDER.forEach(key => {
+      const p = PL(key);
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'pick'; b.dataset.key = key;
+      b.innerHTML = `<svg viewBox="0 0 400 400" aria-hidden="true">${p.svg(p.colors[0].c)}</svg><span>${p.name}</span>`;
+      b.addEventListener('click', () => setProduct(key));
+      picker.appendChild(b);
+    });
+    const grid = $('productGrid');
+    grid.innerHTML = '';
+    ORDER.forEach(key => {
+      const p = PL(key);
+      const card = document.createElement('article');
+      card.className = 'product';
+      card.innerHTML = `<div class="product-art"><svg viewBox="0 0 400 400" aria-hidden="true">${p.svg(p.colors[0].c)}</svg></div>
+        <div class="product-body"><h3>${p.name}</h3><p>${p.blurb}</p><span class="mono spec">${p.spec}</span>
+        <button type="button" class="tool-btn">${L('designThis')}</button></div>`;
+      card.querySelector('button').addEventListener('click', () => {
+        setProduct(key);
+        $('design').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      });
+      grid.appendChild(card);
+    });
+    document.querySelectorAll('.pick').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.key === state.product)));
+  }
+  function buildTextColors() {
+    const tc = $('textColors');
+    TEXT_COLORS.forEach((t, i) => {
+      const s = document.createElement('button');
+      s.type = 'button'; s.className = 'swatch'; s.style.background = t.c;
+      s.setAttribute('role', 'radio'); s.setAttribute('aria-label', t.n + ' text'); s.dataset.i = i;
+      s.addEventListener('click', () => { state.textColor = i; renderText(); });
+      tc.appendChild(s);
+    });
+  }
+
+  function setProduct(key) {
+    if (key !== state.product) state.sizeIdx = (key === 'shirt' || key === 'hoodie') ? 4 : 0;
+    state.product = key; state.color = 0; state.x = 0; state.y = 0;
+    render();
+  }
+
+  function render() {
+    const p = PL(state.product);
+    svg.innerHTML = p.svg(p.colors[state.color].c);
+    const [x, y, w, h] = p.area;
+    Object.assign(area.style, { left: x / 4 + '%', top: y / 4 + '%', width: w / 4 + '%', height: h / 4 + '%' });
+    const tag = $('printTag');
+    tag.textContent = p.tag;
+    tag.style.left = x / 4 + '%'; tag.style.top = y / 4 + '%';
+    $('shade').hidden = !p.curved;
+    document.querySelectorAll('.pick').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.key === state.product)));
+
+    $('colorLabel').textContent = p.colorLabel;
+    $('colorNote').textContent = p.note;
+    const sw = $('swatches');
+    sw.innerHTML = '';
+    p.colors.forEach((c, i) => {
+      const s = document.createElement('button');
+      s.type = 'button'; s.className = 'swatch'; s.style.background = c.c; s.title = c.n;
+      s.setAttribute('role', 'radio'); s.setAttribute('aria-label', c.n);
+      s.setAttribute('aria-checked', String(i === state.color));
+      s.addEventListener('click', () => { state.color = i; render(); });
+      sw.appendChild(s);
+    });
+    const size = $('size');
+    if (state.sizeIdx >= p.sizes.length) state.sizeIdx = 0;
+    size.innerHTML = p.sizes.map((s, i) => `<option value="${i}">${s}</option>`).join('');
+    size.value = String(state.sizeIdx);
+    document.querySelectorAll('#textColors .swatch').forEach((s, i) => s.setAttribute('aria-label', `${L('textColors')[i]} (${L('textWord')})`));
+    renderDesign();
+  }
+
+  function renderDesign() {
+    const idea = $('idea').value.trim();
+    const hasImg = !!state.img;
+    img.hidden = !hasImg;
+    area.classList.toggle('has-img', hasImg);
+    if (hasImg && img.src !== state.img) img.src = state.img;
+    const ideaNote = $('ideaNote');
+    ideaNote.hidden = hasImg || !idea;
+    if (!ideaNote.hidden) {
+      ideaNote.innerHTML = '';
+      const t = document.createElement('span');
+      t.textContent = '“' + (idea.length > 120 ? idea.slice(0, 117) + '…' : idea) + '”';
+      const s = document.createElement('small');
+      s.textContent = L('weDesign');
+      ideaNote.append(t, s);
+    }
+    $('emptyNote').hidden = hasImg || !!idea;
+    $('sampleChip').hidden = !(hasImg && state.sample);
+    $('fileRow').hidden = !hasImg || state.sample;
+    $('fileName').textContent = state.fileName;
+    applyTransform();
+    renderText();
+    renderQuality();
+  }
+
+  function applyTransform() {
+    img.style.transform = `translate(calc(-50% + ${state.x}px), calc(-50% + ${state.y}px)) rotate(${state.rot}deg) scale(${state.scale})`;
+  }
+
+  function renderText() {
+    const t = $('addText').value.trim();
+    const el = $('overlayText');
+    el.textContent = t;
+    el.style.color = TEXT_COLORS[state.textColor].c;
+    el.style.fontSize = Math.max(7, 15 - t.length * 0.3) + 'cqw';
+    el.style.textShadow = state.textColor === 1 ? '0 1px 3px rgba(0,0,0,.45)' : 'none';
+    document.querySelectorAll('#textColors .swatch').forEach((s, i) => s.setAttribute('aria-checked', String(i === state.textColor)));
+  }
+
+  function renderQuality() {
+    const q = $('quality');
+    const strong = q.querySelector('strong'), span = q.querySelector('div span');
+    q.className = 'quality';
+    if (!state.img) {
+      if ($('idea').value.trim()) { strong.textContent = L('qIdea'); span.textContent = L('qIdeaSub'); }
+      else { strong.textContent = L('qNone'); span.textContent = L('qNoneSub'); }
+      return;
+    }
+    const p = P[state.product];
+    const [, , w, h] = p.area;
+    const areaAspect = w / h, imgAspect = state.imgW / state.imgH;
+    const frac = imgAspect >= areaAspect ? 1 : imgAspect / areaAspect;
+    const inches = p.visIn * frac * state.scale;
+    const dpi = Math.round(state.imgW / inches);
+    if (dpi >= 200) { q.classList.add('good'); strong.textContent = L('qGood'); }
+    else if (dpi >= 120) { q.classList.add('ok'); strong.textContent = L('qOk'); }
+    else { q.classList.add('bad'); strong.textContent = L('qBad'); }
+    span.textContent = L('qLine')(state.imgW, state.imgH, dpi) + (dpi < 120 ? L('qTip') : '');
+  }
+
+  /* ---------- image loading ---------- */
+  function loadFile(file) {
+    if (!file || !file.type.startsWith('image/')) { showError(L('errNotImage')); return; }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const probe = new Image();
+      probe.onload = () => {
+        Object.assign(state, { img: reader.result, imgW: probe.naturalWidth, imgH: probe.naturalHeight, sample: false, fileName: file.name, x: 0, y: 0, scale: 1, rot: 0 });
+        $('scale').value = 100; $('rotate').value = 0;
+        hideError();
+        renderDesign();
+      };
+      probe.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  async function makeSample() {
+    try { await document.fonts.ready; } catch (e) {}
+    const S = 2200, cv = document.createElement('canvas');
+    cv.width = S; cv.height = S;
+    const g = cv.getContext('2d');
+    const cx = S / 2, cy = S * 0.46, r = S * 0.36;
+    g.save();
+    g.beginPath(); g.arc(cx, cy, r, 0, Math.PI * 2); g.clip();
+    const grad = g.createLinearGradient(0, cy - r, 0, cy + r);
+    grad.addColorStop(0, '#F0C336'); grad.addColorStop(0.45, '#E97023'); grad.addColorStop(1, '#D32070');
+    g.fillStyle = grad; g.fillRect(cx - r, cy - r, r * 2, r * 2);
+    for (let i = 0; i < 6; i++) { const yy = cy + r * 0.12 + i * r * 0.15; g.clearRect(cx - r, yy, r * 2, 14 + i * 9); }
+    g.fillStyle = '#194CC6';
+    g.beginPath(); g.moveTo(cx - r, cy + r);
+    g.bezierCurveTo(cx - r * 0.5, cy + r * 0.25, cx - r * 0.1, cy + r * 0.35, cx + r * 0.15, cy + r * 0.55);
+    g.bezierCurveTo(cx + r * 0.45, cy + r * 0.3, cx + r * 0.7, cy + r * 0.4, cx + r, cy + r * 0.62);
+    g.lineTo(cx + r, cy + r); g.closePath(); g.fill();
+    g.restore();
+    g.textAlign = 'center';
+    g.fillStyle = '#120D30';
+    g.font = `${S * 0.125}px "Lilita One", "Arial Black", sans-serif`;
+    g.fillText('HARVEST FEST', cx, S * 0.93);
+    g.fillStyle = '#8522CD';
+    g.font = `900 ${S * 0.05}px "Nunito", sans-serif`;
+    g.fillText('COMMUNITY · 2026', cx, S * 0.08);
+    Object.assign(state, { img: cv.toDataURL('image/png'), imgW: S, imgH: S, sample: true, fileName: '' });
+    renderDesign();
+  }
+
+  /* ---------- interactions ---------- */
+  const drop = $('drop');
+  $('fileInput').addEventListener('change', e => { loadFile(e.target.files[0]); e.target.value = ''; });
+  ['dragenter', 'dragover'].forEach(ev => [drop, stage].forEach(t => t.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); })));
+  ['dragleave', 'drop'].forEach(ev => [drop, stage].forEach(t => t.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); })));
+  [drop, stage].forEach(t => t.addEventListener('drop', e => {
+    const f = e.dataTransfer && e.dataTransfer.files[0];
+    if (f) { setMode('upload'); loadFile(f); }
+  }));
+  $('removeImg').addEventListener('click', () => { Object.assign(state, { img: null, sample: false, fileName: '' }); renderDesign(); });
+
+  let drag = null;
+  area.addEventListener('pointerdown', e => {
+    if (!state.img) return;
+    drag = { sx: e.clientX, sy: e.clientY, ox: state.x, oy: state.y };
+    area.setPointerCapture(e.pointerId);
+    area.classList.add('dragging');
+  });
+  area.addEventListener('pointermove', e => {
+    if (!drag) return;
+    state.x = drag.ox + (e.clientX - drag.sx);
+    state.y = drag.oy + (e.clientY - drag.sy);
+    applyTransform();
+  });
+  const endDrag = () => { drag = null; area.classList.remove('dragging'); };
+  area.addEventListener('pointerup', endDrag);
+  area.addEventListener('pointercancel', endDrag);
+  area.addEventListener('keydown', e => {
+    if (!state.img) return;
+    const step = e.shiftKey ? 20 : 5;
+    const map = { ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] };
+    if (map[e.key]) { e.preventDefault(); state.x += map[e.key][0]; state.y += map[e.key][1]; applyTransform(); }
+  });
+
+  $('scale').addEventListener('input', e => { state.scale = e.target.value / 100; applyTransform(); renderQuality(); });
+  $('rotate').addEventListener('input', e => { state.rot = +e.target.value; applyTransform(); });
+  $('resetBtn').addEventListener('click', () => {
+    Object.assign(state, { x: 0, y: 0, scale: 1, rot: 0 });
+    $('scale').value = 100; $('rotate').value = 0;
+    applyTransform(); renderQuality();
+  });
+  $('guides').addEventListener('change', e => stage.classList.toggle('guides', e.target.checked));
+  $('addText').addEventListener('input', renderText);
+  $('idea').addEventListener('input', () => { renderDesign(); hideError(); });
+
+  function setMode(mode) {
+    state.mode = mode;
+    $('tabUpload').setAttribute('aria-selected', String(mode === 'upload'));
+    $('tabIdea').setAttribute('aria-selected', String(mode === 'idea'));
+    $('panelUpload').hidden = mode !== 'upload';
+    $('panelIdea').hidden = mode !== 'idea';
+    if (mode === 'idea' && state.sample) { state.img = null; state.sample = false; }
+    renderDesign();
+  }
+  $('tabUpload').addEventListener('click', () => setMode('upload'));
+  $('tabIdea').addEventListener('click', () => { setMode('idea'); $('idea').focus(); });
+
+  try { $('deadline').min = new Date().toISOString().slice(0, 10); } catch (e) {}
+
+  /* ---------- submit ---------- */
+  function showError(msg) { const el = $('formError'); el.textContent = msg; el.hidden = false; }
+  function hideError() { $('formError').hidden = true; }
+
+  $('orderForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const idea = $('idea').value.trim();
+    const hasOwnImg = state.img && !state.sample;
+    if (!hasOwnImg && idea.length < 4) { showError(L('errDesign')); return; }
+    if (!$('custName').value.trim()) { showError(L('errName')); $('custName').focus(); return; }
+    const contact = $('contact').value.trim();
+    if (contact.replace(/\D/g, '').length < 7 && !/\S+@\S+\.\S+/.test(contact)) { showError(L('errContact')); $('contact').focus(); return; }
+    const qty = Math.max(1, parseInt($('qty').value, 10) || 1);
+    hideError();
+    runPress({ idea, qty, contact });
+  });
+
+  function runPress(d) {
+    const ov = $('overlay');
+    $('pressing').hidden = false; $('done').hidden = true;
+    // restart animations
+    $('pressing').querySelectorAll('.arm, .platen, .ink, .bar span').forEach(el => { el.style.animation = 'none'; void el.offsetWidth; el.style.animation = ''; });
+    ov.hidden = false;
+    const msgs = L('press');
+    let i = 0; $('pressMsg').textContent = msgs[0];
+    const tick = setInterval(() => { i++; if (i < msgs.length) $('pressMsg').textContent = msgs[i]; }, 900);
+    const wait = matchMedia('(prefers-reduced-motion: reduce)').matches ? 600 : 2900;
+    setTimeout(() => { clearInterval(tick); showDone(d); }, wait);
+  }
+
+  function showDone(d) {
+    const p = PL(state.product);
+    const now = new Date();
+    const id = 'REQ-' + String(now.getMonth() + 1).padStart(2, '0') + String(now.getDate()).padStart(2, '0') + '-' + Math.random().toString(36).slice(2, 6).toUpperCase();
+    $('reqId').textContent = id;
+    const thumb = $('doneThumb');
+    thumb.innerHTML = '';
+    const clone = stage.cloneNode(true);
+    clone.removeAttribute('id'); clone.classList.remove('guides');
+    clone.querySelectorAll('[id]').forEach(n => n.removeAttribute('id'));
+    const chip = clone.querySelector('.stage-chip'); if (chip) chip.remove();
+    thumb.appendChild(clone);
+    const sizeText = $('size').selectedOptions[0] ? $('size').selectedOptions[0].textContent : '';
+    const rows = [
+      [L('sItem'), `${p.name} · ${sizeText}`],
+      [L('sColor'), p.colors[state.color].n],
+      [L('sQty'), String(d.qty)],
+      [L('sDesign'), state.img && !state.sample ? (state.fileName || L('sUploaded')) : L('sFromIdea')],
+    ];
+    if ($('addText').value.trim()) rows.push([L('sText'), $('addText').value.trim()]);
+    if ($('deadline').value) rows.push([L('sNeedBy'), new Date($('deadline').value + 'T12:00').toLocaleDateString(L('locale'), { month: 'short', day: 'numeric', year: 'numeric' })]);
+    rows.push([L('sDelivery'), $('dShip').checked ? L('sShip') : L('sPickup')]);
+    rows.push([L('sContact'), `${$('custName').value.trim()} · ${d.contact}`]);
+    const dl = $('summary'); dl.innerHTML = '';
+    rows.forEach(([k, v]) => { const dt = document.createElement('dt'); dt.textContent = k; const dd = document.createElement('dd'); dd.textContent = v; dl.append(dt, dd); });
+    $('pressing').hidden = true; $('done').hidden = false;
+    $('againBtn').focus();
+  }
+
+  $('againBtn').addEventListener('click', () => {
+    $('overlay').hidden = true;
+    $('orderForm').reset();
+    Object.assign(state, { color: 0, x: 0, y: 0, scale: 1, rot: 0, textColor: 0 });
+    setMode('upload');
+    makeSample();
+    render();
+    $('design').scrollIntoView();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('overlay').hidden && !$('done').hidden) $('againBtn').click(); });
+
+  $('size').addEventListener('change', e => { state.sizeIdx = +e.target.value; });
+
+  /* ---------- language: shared with the home page ---------- */
+  const langBox = document.querySelector('.lang');
+  function applyLang(lang, animate) {
+    if (!I18N[lang]) return;
+    LANG = lang;
+    document.documentElement.lang = lang;
+    langBox.dataset.active = lang;
+    langBox.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+    const T = I18N[lang];
+    const swap = () => {
+      document.querySelectorAll('[data-i18n]').forEach(el => { const v = T[el.dataset.i18n]; if (typeof v === 'string') el.textContent = v; });
+      document.querySelectorAll('[data-i18n-html]').forEach(el => { const v = T[el.dataset.i18nHtml]; if (typeof v === 'string') el.innerHTML = v; });
+      document.querySelectorAll('[data-i18n-aria]').forEach(el => { const v = T[el.dataset.i18nAria]; if (v) el.setAttribute('aria-label', v); });
+      document.querySelectorAll('[data-i18n-ph]').forEach(el => { const v = T[el.dataset.i18nPh]; if (v) el.setAttribute('placeholder', v); });
+      document.querySelectorAll('[data-i18n-alt]').forEach(el => { const v = T[el.dataset.i18nAlt]; if (v) el.setAttribute('alt', v); });
+      buildPicker(); render();
+    };
+    if (!animate || matchMedia('(prefers-reduced-motion: reduce)').matches) { swap(); return; }
+    const els = [...document.querySelectorAll('[data-i18n], [data-i18n-html], .pick span, .product-body, #colorNote, #quality')].filter(el => {
+      const r = el.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight;
+    });
+    els.forEach(el => el.animate([{ opacity: 1, filter: 'blur(0px)' }, { opacity: 0, filter: 'blur(5px)' }], { duration: 150, easing: 'ease-in' }));
+    setTimeout(() => {
+      swap();
+      document.querySelectorAll('[data-i18n], [data-i18n-html], .pick span, .product-body, #colorNote, #quality').forEach(el => {
+        const r = el.getBoundingClientRect(); if (r.bottom > 0 && r.top < innerHeight)
+          el.animate([{ opacity: 0, filter: 'blur(5px)', transform: 'translateY(5px)' }, { opacity: 1, filter: 'blur(0px)', transform: 'none' }], { duration: 380, easing: 'cubic-bezier(.16, 1, .3, 1)' });
+      });
+    }, 140);
+  }
+  langBox.addEventListener('click', e => {
+    const b = e.target.closest('button[data-lang]'); if (!b || b.dataset.lang === LANG) return;
+    try { localStorage.setItem('cs-lang', b.dataset.lang); } catch (err) {}
+    applyLang(b.dataset.lang, true);
+  });
+  let startLang = '';
+  try { startLang = localStorage.getItem('cs-lang') || ''; } catch (err) {}
+  if (!startLang) startLang = (navigator.language || 'en').toLowerCase().startsWith('es') ? 'es' : 'en';
+  LANG = startLang;
+
+  // back to the home page: use the exact address the home page saved, else go back
+  try { const home = sessionStorage.getItem('cs-home'); if (home) $('homeLink').href = home; } catch (err) {}
+  $('homeLink').addEventListener('click', e => {
+    let home = ''; try { home = sessionStorage.getItem('cs-home') || ''; } catch (err) {}
+    if (!home && history.length > 1) { e.preventDefault(); history.back(); }
+  });
+
+  // a product chosen on the home page arrives as #shirt, #mug, …
+  const wanted = (location.hash || '').slice(1);
+  if (P[wanted]) { state.product = wanted; state.sizeIdx = (wanted === 'shirt' || wanted === 'hoodie') ? 4 : 0; }
+
+  buildTextColors();
+  applyLang(LANG, false);
+  if (P[wanted]) setTimeout(() => $('design').scrollIntoView(), 50);
+  document.querySelectorAll('svg[data-art]').forEach(el => { const p = P[el.dataset.art]; el.innerHTML = p.svg(p.colors[0].c); });
+  makeSample();
+})();
+</script>
+</body>
+</html>
