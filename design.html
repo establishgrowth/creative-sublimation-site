@@ -1079,6 +1079,8 @@ textarea.input { resize: vertical; min-height: 92px; }
   });
   let startLang = '';
   try { startLang = localStorage.getItem('cs-lang') || ''; } catch (err) {}
+  const urlLang = new URLSearchParams(location.search).get('lang');
+  if (urlLang === 'es' || urlLang === 'en') { startLang = urlLang; try { localStorage.setItem('cs-lang', urlLang); } catch (err) {} }
   if (!startLang) startLang = (navigator.language || 'en').toLowerCase().startsWith('es') ? 'es' : 'en';
   LANG = startLang;
 

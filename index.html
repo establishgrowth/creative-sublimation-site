@@ -420,6 +420,8 @@ a { color: inherit; }
   });
   let startLang = 'en';
   try { startLang = localStorage.getItem('cs-lang') || ''; } catch (err) { startLang = ''; }
+  const urlLang = new URLSearchParams(location.search).get('lang');
+  if (urlLang === 'es' || urlLang === 'en') { startLang = urlLang; try { localStorage.setItem('cs-lang', urlLang); } catch (err) {} }
   if (!startLang) startLang = (navigator.language || 'en').toLowerCase().startsWith('es') ? 'es' : 'en';
   applyLang(startLang, false);
 
