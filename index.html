@@ -159,6 +159,46 @@ a { color: inherit; }
   .tag { display: none; }
 }
 
+/* inside the shop: pinned section, scroll picks the chapter, video keeps playing */
+.shop { position: relative; height: 340vh; }
+.shop-pin { position: sticky; top: 0; height: 100svh; overflow: hidden; display: grid; align-items: center; isolation: isolate; }
+.shop-glow { --glow: #194CC6; position: absolute; z-index: -1; left: 28%; top: 52%; width: 62vmax; height: 62vmax; transform: translate(-50%, -50%); border-radius: 50%; filter: blur(90px); opacity: .42; background: radial-gradient(circle, var(--glow), transparent 64%); transition: background 1s ease; pointer-events: none; }
+.shop-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); grid-template-areas: "media head" "media steps"; column-gap: clamp(28px, 6vw, 96px); row-gap: 18px; align-content: center; width: 100%; }
+.shop-head { grid-area: head; align-self: end; display: grid; gap: 12px; min-width: 0; }
+.shop-head h2 { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(34px, 5vw, 60px); line-height: 1.02; text-wrap: balance; }
+.grad-text { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.shop-media { grid-area: media; display: grid; place-items: center; perspective: 1400px; min-width: 0; }
+.device { position: relative; height: min(74svh, 640px); aspect-ratio: 9 / 16; max-width: 100%; border-radius: 34px; padding: 9px; background: linear-gradient(160deg, #2b2566, #0e0b26 60%); box-shadow: 0 50px 90px -30px rgba(0,0,0,.8), inset 0 0 0 1px rgba(244,246,251,.14); will-change: transform; transform-style: preserve-3d; }
+.device video { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 26px; background: #000; }
+.rec { position: absolute; left: 20px; top: 20px; display: inline-flex; align-items: center; gap: 7px; padding: 5px 10px; border-radius: 999px; background: rgba(7,6,26,.62); backdrop-filter: blur(8px); font-size: 10.5px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; color: #F4F6FB; }
+.rec i { width: 7px; height: 7px; border-radius: 50%; background: #FF3B6B; animation: blink 1.6s ease-in-out infinite; }
+@keyframes blink { 50% { opacity: .25; } }
+.shop-flow { grid-area: steps; align-self: start; display: grid; gap: 16px; min-width: 0; }
+.shop-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.shop-steps li { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 12px; padding: 14px 16px; border-radius: 18px; cursor: pointer; opacity: .42; transition: opacity .45s ease, background-color .45s ease; }
+.shop-steps li:hover { opacity: .7; }
+.shop-steps li.on { opacity: 1; background: rgba(244,246,251,.05); }
+.shop-steps .num { font-family: var(--font-display); font-size: 22px; line-height: 1.2; color: var(--muted); transition: color .45s; }
+.shop-steps li.on .num { color: var(--c); }
+.shop-steps h3 { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(21px, 2.1vw, 27px); line-height: 1.15; }
+.shop-steps p { margin: 0; color: var(--muted); font-size: 15.5px; max-width: 42ch; max-height: 0; opacity: 0; overflow: hidden; transition: max-height .55s cubic-bezier(.16,1,.3,1), opacity .4s ease, margin-top .4s ease; }
+.shop-steps li.on p { max-height: 7em; opacity: 1; margin-top: 4px; }
+.shop-bar { height: 3px; border-radius: 3px; background: rgba(244,246,251,.1); overflow: hidden; margin-inline: 16px; }
+.shop-bar span { display: block; height: 100%; width: 0; background: var(--gradient); }
+@media (max-width: 760px) {
+  .shop { height: 320vh; }
+  .shop-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "media" "steps"; row-gap: 14px; }
+  .shop-head { text-align: center; justify-items: center; align-self: auto; }
+  .shop-head h2 { font-size: 30px; }
+  .device { height: 44svh; border-radius: 26px; padding: 7px; }
+  .device video { border-radius: 20px; }
+  .rec { left: 14px; top: 14px; }
+  .shop-steps li { padding: 8px 12px; }
+  .shop-steps li:not(.on) { display: none; }
+  .shop-steps p { font-size: 14.5px; }
+}
+@media (prefers-reduced-motion: reduce) { .rec i { animation: none; } .shop-steps p, .shop-steps li, .shop-glow { transition: none; } }
+
 /* ticker */
 .ticker { border-block: 1px solid var(--line); overflow: hidden; padding-block: 22px; }
 .ticker-track { display: flex; gap: 48px; width: max-content; animation: tick 30s linear infinite; }
@@ -302,6 +342,35 @@ a { color: inherit; }
     </div>
   </section>
 
+  <section class="shop" id="shop" aria-labelledby="shopTitle">
+    <div class="shop-pin">
+      <div class="shop-glow" id="shopGlow" aria-hidden="true"></div>
+      <div class="wrap shop-grid">
+        <div class="shop-head">
+          <span class="eyebrow" data-i18n="shopEyebrow">Inside the shop</span>
+          <h2 id="shopTitle" data-i18n-html="shopTitle">From screen <span class="grad-text">to mug.</span></h2>
+        </div>
+        <div class="shop-media">
+          <div class="device" id="device">
+            <video id="shopVid" muted playsinline preload="metadata" poster="media/shop-poster.jpg" aria-label="Video of a real order being made, from printing to the finished mug" data-i18n-aria="shopVidAria">
+              <source src="media/shop-process.mp4" type="video/mp4">
+            </video>
+            <span class="rec"><i aria-hidden="true"></i><span data-i18n="shopRec">Real order · filmed in our shop</span></span>
+          </div>
+        </div>
+        <div class="shop-flow">
+          <ol class="shop-steps" id="shopSteps">
+            <li class="on" style="--c: #47BFED"><span class="num" aria-hidden="true">01</span><div><h3 data-i18n="s1t">Design</h3><p data-i18n="s1p">We set up your artwork and print it with sublimation ink.</p></div></li>
+            <li style="--c: #A964F0"><span class="num" aria-hidden="true">02</span><div><h3 data-i18n="s2t">Prep</h3><p data-i18n="s2p">The print is trimmed and taped tight around the mug.</p></div></li>
+            <li style="--c: #F0C336"><span class="num" aria-hidden="true">03</span><div><h3 data-i18n="s3t">Press</h3><p data-i18n="s3p">Into the press at 390°F. The heat turns the ink to gas and bonds it into the mug's coating.</p></div></li>
+            <li style="--c: #E032BA"><span class="num" aria-hidden="true">04</span><div><h3 data-i18n="s4t">Reveal</h3><p data-i18n="s4p">Peel the paper and the design is part of the mug. No stickers, nothing to peel off.</p></div></li>
+          </ol>
+          <div class="shop-bar" aria-hidden="true"><span id="shopBar"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <div class="ticker" aria-label="What we print" data-i18n-aria="tickerAria">
     <div class="ticker-track" id="ticker">
       <span><i style="background: var(--sky)"></i><b data-i18n="tShirts">T-shirts</b></span>
@@ -366,7 +435,13 @@ a { color: inherit; }
       threeSteps: 'Three steps',
       closeTitle: 'Send the idea. Get a quote. <span style="background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent;">We press it.</span>',
       closeText: 'Upload a photo or describe what you want. We finish the artwork, text you a price, and press it for local pickup or shipping.',
-      footer: 'Custom sublimation printing · Minnesota'
+      footer: 'Custom sublimation printing · Minnesota',
+      shopEyebrow: 'Inside the shop', shopTitle: 'From screen <span class="grad-text">to mug.</span>',
+      shopRec: 'Real order · filmed in our shop', shopVidAria: 'Video of a real order being made, from printing to the finished mug',
+      s1t: 'Design', s1p: 'We set up your artwork and print it with sublimation ink.',
+      s2t: 'Prep', s2p: 'The print is trimmed and taped tight around the mug.',
+      s3t: 'Press', s3p: "Into the press at 390°F. The heat turns the ink to gas and bonds it into the mug's coating.",
+      s4t: 'Reveal', s4p: 'Peel the paper and the design is part of the mug. No stickers, nothing to peel off.'
     },
     es: {
       navProducts: 'Productos', navHow: 'Cómo funciona', designNow: 'Diseña ahora',
@@ -387,7 +462,13 @@ a { color: inherit; }
       threeSteps: 'Tres pasos',
       closeTitle: 'Envía tu idea. Recibe tu precio. <span style="background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent;">Nosotros lo estampamos.</span>',
       closeText: 'Sube una foto o describe lo que quieres. Terminamos el diseño, te enviamos el precio por mensaje y lo estampamos para recoger en persona o enviar.',
-      footer: 'Impresión por sublimación personalizada · Minnesota'
+      footer: 'Impresión por sublimación personalizada · Minnesota',
+      shopEyebrow: 'Dentro del taller', shopTitle: 'De la pantalla <span class="grad-text">a la taza.</span>',
+      shopRec: 'Pedido real · grabado en nuestro taller', shopVidAria: 'Video de un pedido real, desde la impresión hasta la taza terminada',
+      s1t: 'Diseño', s1p: 'Preparamos tu diseño y lo imprimimos con tinta de sublimación.',
+      s2t: 'Preparación', s2p: 'Recortamos la impresión y la fijamos bien alrededor de la taza.',
+      s3t: 'Prensado', s3p: 'A la prensa a 390 °F. El calor convierte la tinta en gas y la fusiona con el recubrimiento de la taza.',
+      s4t: 'Revelado', s4p: 'Quitamos el papel y el diseño ya es parte de la taza. Sin calcomanías, nada que se despegue.'
     }
   };
   const langBox = document.querySelector('.lang');
@@ -512,6 +593,53 @@ a { color: inherit; }
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
   addEventListener('resize', update);
   update();
+
+  /* ---------- inside the shop: scroll picks the chapter, the video keeps playing ---------- */
+  const shop = $('shop'), vid = $('shopVid'), device = $('device'), glowEl = $('shopGlow'), shopBar = $('shopBar');
+  const steps = [...document.querySelectorAll('#shopSteps li')];
+  const SEG = [0, 4.0, 9.333, 16.667, 23.1];                 // chapter start times in shop-process.mp4
+  const GLOW = ['#194CC6', '#8522CD', '#E97023', '#E032BA'];
+  let cur = -1, shopInView = false;
+  if (reduce) vid.controls = true;
+  function seekTo(i) { if (vid.readyState >= 1) { try { vid.currentTime = SEG[i] + .02; } catch (e) {} } }
+  function setStep(i) {
+    if (i === cur) return;
+    cur = i;
+    steps.forEach((li, k) => { li.classList.toggle('on', k === i); if (k === i) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current'); });
+    glowEl.style.setProperty('--glow', GLOW[i]);
+    seekTo(i);
+    if (shopInView && !reduce) vid.play().catch(() => {});
+  }
+  vid.addEventListener('loadedmetadata', () => seekTo(Math.max(cur, 0)));
+  // keep each chapter looping on itself
+  (function guard() {
+    if (cur >= 0 && !vid.paused && vid.currentTime >= SEG[cur + 1] - .05) seekTo(cur);
+    requestAnimationFrame(guard);
+  })();
+  vid.addEventListener('ended', () => { seekTo(cur); if (shopInView && !reduce) vid.play().catch(() => {}); });
+  new IntersectionObserver(es => es.forEach(en => {
+    shopInView = en.isIntersecting;
+    if (shopInView && !reduce) vid.play().catch(() => {}); else vid.pause();
+  }), { threshold: .25 }).observe(device);
+  steps.forEach((li, i) => li.addEventListener('click', () => {
+    const span = shop.offsetHeight - innerHeight;
+    scrollTo({ top: shop.offsetTop + span * (i + .5) / 4, behavior: reduce ? 'auto' : 'smooth' });
+  }));
+  let shopTick = false;
+  function updateShop() {
+    shopTick = false;
+    const vh = innerHeight, r = shop.getBoundingClientRect();
+    const q = clamp(-r.top / (shop.offsetHeight - vh));
+    setStep(Math.min(3, Math.floor(q * 4)));
+    shopBar.style.width = (q * 100).toFixed(1) + '%';
+    if (reduce) return;
+    const e = ease(clamp((vh - r.top) / vh));
+    // rises in, then keeps a slow turn the whole way through (never parks)
+    device.style.transform = `translateY(${((1 - e) * 140).toFixed(1)}px) rotateY(${(-16 + q * 26).toFixed(2)}deg) rotateZ(${(-3 + q * 5).toFixed(2)}deg) scale(${(.88 + e * .12).toFixed(3)})`;
+  }
+  addEventListener('scroll', () => { if (!shopTick) { shopTick = true; requestAnimationFrame(updateShop); } }, { passive: true });
+  addEventListener('resize', updateShop);
+  updateShop();
 })();
 </script>
 </body>
